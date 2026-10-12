@@ -14,8 +14,8 @@ import re
 T_UZ = {
     "nav": [("how", "Qanday ishlaydi"), ("client", "Mijozlar uchun"), ("price", "Narxlar"), ("contact", "Aloqa")],
     "status": "Yopiq sinov · Android",
-    "h1": "Rieltorning shaxsiy ish vositasi",
-    "lead": "Kamroq kundalik ish, yuqoriroq KPI. Obyektlar, mijozlar va tanlovlar bitta ilovada, baza esa doim sizga tegishli.",
+    "h1": "Rieltorning shaxsiy yordamchisi",
+    "lead": "Koʻchmas mulk agentining professional ish vositasi: obyektlar, mijozlar va tanlovlar bitta ilovada. Kamroq kundalik ish, yuqoriroq KPI, baza esa doim sizniki.",
     "cta": "Bogʻlanish",
     "cta2": "Qanday ishlashini koʻrish",
     "hero_note": "Ilovaning haqiqiy ekranlari (rus tilidagi interfeys), demo maʼlumotlar: Toshkent",
@@ -78,7 +78,7 @@ T_UZ = {
     "f_demo": "Saytdagi ekranlar haqiqiy, maʼlumotlar demo.",
 }
 
-TITLE_UZ = "EASY ESTATE - rieltor vositasi"
+TITLE_UZ = "EASY ESTATE - rieltorning shaxsiy yordamchisi"
 
 PAGE_TITLES_UZ = {
     "support": "Qoʻllab-quvvatlash",
