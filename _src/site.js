@@ -5,6 +5,34 @@
   var RU = ['ru', 'kk', 'ky', 'tg', 'be'];
   var root = document.documentElement;
   root.classList.add('js');
+  // Подсветка раздела, который сейчас на экране (только на главной).
+  var observer = null;
+  function watchSections(lang) {
+    if (!('IntersectionObserver' in window)) return;
+    if (observer) observer.disconnect();
+    var ids = ['how', 'client', 'price', 'contact'];
+    var links = document.querySelectorAll('[data-sec]');
+    function mark(id) {
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-sec') === id) links[i].setAttribute('aria-current', 'location');
+        else links[i].removeAttribute('aria-current');
+      }
+    }
+    observer = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) mark(entries[i].target.id);
+      }
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    var found = false;
+    for (var k = 0; k < ids.length; k++) {
+      var el = document.getElementById(ids[k] + '-' + lang);
+      if (el) { observer.observe(el); found = true; }
+    }
+    var hero = document.querySelector('.lang-block[data-lang="' + lang + '"] .hero');
+    if (found && hero) {
+      new IntersectionObserver(function (en) { if (en[0].isIntersecting) mark(''); }, { rootMargin: '-45% 0px -50% 0px' }).observe(hero);
+    }
+  }
   function pick(code) {
     var c = (code || '').toLowerCase();
     if (c.indexOf('uz') === 0) return c.indexOf('cyrl') >= 0 ? 'uz-cyrl' : 'uz';
@@ -31,6 +59,9 @@
     var page = document.querySelector('.page');
     var t = page && page.getAttribute('data-title-' + lang);
     if (t) document.title = t;
+    var mb = document.getElementById('menu-btn');
+    if (mb && mb.getAttribute('data-label-' + lang)) mb.setAttribute('aria-label', mb.getAttribute('data-label-' + lang));
+    if (typeof watchSections === 'function') watchSections(lang);
   }
   var q = null;
   try { q = new URLSearchParams(window.location.search).get('lang'); } catch (e) { q = null; }
@@ -48,6 +79,30 @@
       apply(lang);
       save(lang);
       try { history.replaceState(null, '', '?lang=' + lang); } catch (e) { /* в превью адрес не меняется */ }
+    });
+  }
+  // Меню на телефоне: открыть/закрыть кнопкой, закрыть по ссылке, Escape или нажатию вне меню.
+  var menuBtn = document.getElementById('menu-btn');
+  var menuPanel = document.getElementById('menu-panel');
+  function setMenu(open) {
+    if (!menuBtn || !menuPanel) return;
+    menuPanel.hidden = !open;
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  if (menuBtn) {
+    menuBtn.addEventListener('click', function (ev) { ev.stopPropagation(); setMenu(menuPanel.hidden); });
+    menuPanel.addEventListener('click', function (ev) { if (ev.target.closest('a')) setMenu(false); });
+    document.addEventListener('click', function (ev) { if (!menuPanel.hidden && !ev.target.closest('.site-head')) setMenu(false); });
+    document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && !menuPanel.hidden) { setMenu(false); menuBtn.focus(); } });
+  }
+  // Логотип на главной — плавно наверх, без перезагрузки.
+  var home = document.querySelector('[data-home]');
+  if (home && document.querySelector('.hero')) {
+    home.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      setMenu(false);
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
     });
   }
   var buttons = document.querySelectorAll('.copy');
