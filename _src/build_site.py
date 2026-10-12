@@ -7,6 +7,10 @@
 """
 import html
 import pathlib
+import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import uz  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 LOGO = (ROOT / "assets" / "logo-mark.svg").read_text(encoding="utf-8")
@@ -151,6 +155,12 @@ T = {
     },
 }
 
+T["uz"] = uz.T_UZ
+T["uz-cyrl"] = uz.t_cyrl(uz.T_UZ)
+LANGS = ["ru", "uz", "uz-cyrl", "en"]
+LANG_ATTR = {"uz": "uz-Latn", "uz-cyrl": "uz-Cyrl"}
+SCREENS_RU = {"ru", "uz", "uz-cyrl"}  # узбекских снимков экранов пока нет — русский интерфейс
+
 e = html.escape
 
 
@@ -162,8 +172,8 @@ def phone(src, alt, cls="", eager=False):
 
 def block(lang):
     t = T[lang]
-    hero_imgs = ("05_home", "07_property_card") if lang == "ru" else ("en_05_home", "en_07_property_card")
-    c_imgs = ("04_client_card", "06_properties") if lang == "ru" else ("en_04_client_card", "en_06_properties")
+    hero_imgs = ("05_home", "07_property_card") if lang in SCREENS_RU else ("en_05_home", "en_07_property_card")
+    c_imgs = ("04_client_card", "06_properties") if lang in SCREENS_RU else ("en_04_client_card", "en_06_properties")
     p_items = "".join(f'<li><b>{e(a)}</b><span>{e(b)}</span></li>' for a, b in t["p_items"])
     steps = []
     for i, s in enumerate(t["steps"], 1):
@@ -184,8 +194,8 @@ def block(lang):
     nav = "".join(f'<a href="#{a}-{lang}">{e(b)}</a>' for a, b in t["nav"])
     flinks = "".join(f'<a href="{h}">{e(x)}</a>' for h, x in t["f_links"])
     return f'''
-<div class="lang-block" data-lang="{lang}" lang="{lang}">
-  <nav class="topnav" aria-label="{'Разделы' if lang == 'ru' else 'Sections'}">{nav}</nav>
+<div class="lang-block" data-lang="{lang}" lang="{LANG_ATTR.get(lang, lang)}">
+  <nav class="topnav" aria-label="{'Разделы' if lang == 'ru' else 'Boʻlimlar' if lang == 'uz' else 'Бўлимлар' if lang == 'uz-cyrl' else 'Sections'}">{nav}</nav>
   <section class="hero">
     <div class="hero-text">
       <p class="status"><span class="dot" aria-hidden="true"></span>{e(t["status"])}</p>
@@ -264,14 +274,20 @@ JS = (pathlib.Path(__file__).parent / "site.js").read_text(encoding="utf-8")
 
 HEADER = f'''<header class="site-head">
   <a class="brand" href="./" aria-label="EASY ESTATE">{LOGO}<span>EASY ESTATE</span></a>
-  <div class="langs" role="group" aria-label="Language / Язык">
-    <a href="?lang=ru" data-l="ru">RU</a><a href="?lang=en" data-l="en">EN</a>
+  <div class="langs" role="group" aria-label="Language / Язык / Til">
+    <a href="?lang=ru" data-l="ru">RU</a><a href="?lang=uz" data-l="uz" data-group="uz">UZ</a><a href="?lang=en" data-l="en">EN</a>
   </div>
-</header>'''
+</header>
+<div class="scriptbar" hidden>
+  <span class="scriptbar-label">Yozuv / Ёзув</span>
+  <div class="scripts" role="group" aria-label="Yozuv / Ёзув">
+    <a href="?lang=uz" data-l="uz" lang="uz-Latn">Lotin</a><a href="?lang=uz-cyrl" data-l="uz-cyrl" lang="uz-Cyrl">Кирилл</a>
+  </div>
+</div>'''
 
-BODY = f'''<div class="page" data-title-ru="EASY ESTATE - инструмент риелтора" data-title-en="EASY ESTATE - a tool for real estate agents">
+BODY = f'''<div class="page" data-title-ru="EASY ESTATE - инструмент риелтора" data-title-uz="{uz.TITLE_UZ}" data-title-uz-cyrl="{uz.to_cyrl(uz.TITLE_UZ)}" data-title-en="EASY ESTATE - a tool for real estate agents">
 {HEADER}
-<main>{block("ru")}{block("en")}</main>
+<main>{"".join(block(L) for L in LANGS)}</main>
 </div>
 <script>{JS}</script>'''
 
@@ -329,7 +345,7 @@ def mail(addr, lang):
             f'<span class="copy-status" role="status" aria-live="polite"></span></div>')
 
 
-PAGES = {
+PAGES = {  # ru и en здесь; uz и uz-cyrl — из uz.page_uz()
     "support": {
         "title": {"ru": "Поддержка", "en": "Support"},
         "ru": lambda: f'''
@@ -407,13 +423,28 @@ DOC_CSS = """
 """
 
 
+def page_html(slug, lang):
+    if lang == "uz":
+        return uz.page_uz(slug, mail, "uz", BOT, SUPPORT_MAIL, PRIVACY_MAIL)
+    if lang == "uz-cyrl":
+        return uz.to_cyrl_html(uz.page_uz(slug, mail, "uz-cyrl", BOT, SUPPORT_MAIL, PRIVACY_MAIL))
+    return PAGES[slug][lang]()
+
+
+def title_of(slug, lang):
+    if lang == "uz":
+        return uz.PAGE_TITLES_UZ[slug]
+    if lang == "uz-cyrl":
+        return uz.to_cyrl(uz.PAGE_TITLES_UZ[slug])
+    return PAGES[slug]["title"][lang]
+
+
 def doc_block(slug, lang):
-    pg = PAGES[slug]
     t = T[lang]
     flinks = "".join(f'<a href="{h}">{e(x)}</a>' for h, x in t["f_links"])
     return f'''
-<div class="lang-block" data-lang="{lang}" lang="{lang}">
-  <article class="doc"><h1>{e(pg["title"][lang])}</h1>{pg[lang]()}</article>
+<div class="lang-block" data-lang="{lang}" lang="{LANG_ATTR.get(lang, lang)}">
+  <article class="doc"><h1>{e(title_of(slug, lang))}</h1>{page_html(slug, lang)}</article>
   <footer class="foot"><p>{e(t["f_company"])}</p><p class="foot-links">{flinks}</p></footer>
 </div>'''
 
@@ -422,9 +453,10 @@ for slug in PAGES:
     head_extra = ('<meta name="robots" content="noindex">' if slug == "404"
                   else f'<link rel="canonical" href="https://easyestate.solutions/{slug}.html">')
     page_title = f'EASY ESTATE - {PAGES[slug]["title"]["ru"]} / {PAGES[slug]["title"]["en"]}'
-    body = f'''<div class="page" data-title-ru="EASY ESTATE - {e(PAGES[slug]["title"]["ru"])}" data-title-en="EASY ESTATE - {e(PAGES[slug]["title"]["en"])}">
+    titles = " ".join(f'data-title-{L}="EASY ESTATE - {e(title_of(slug, L))}"' for L in LANGS)
+    body = f'''<div class="page" {titles}>
 {HEADER.replace('href="./"', 'href="/"')}
-<main>{doc_block(slug, "ru")}{doc_block(slug, "en")}</main>
+<main>{"".join(doc_block(slug, L) for L in LANGS)}</main>
 </div>
 <script>{JS}</script>'''
     doc = f'''<!DOCTYPE html>
