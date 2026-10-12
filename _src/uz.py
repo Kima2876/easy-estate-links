@@ -73,8 +73,8 @@ T_UZ = {
     "copy": "Manzilni nusxalash",
     "copied": "Manzil nusxalandi",
     "f_company": "«EASY ESTATE» MChJ, STIR 307553192, Toshkent, Oʻzbekiston",
-    # Политика и условия пока на ru/en — ссылка на русскую редакцию.
-    "f_links": [("support.html?lang=uz", "Qoʻllab-quvvatlash"), ("privacy.html?lang=ru", "Maxfiylik siyosati"), ("terms.html?lang=ru", "Foydalanish shartlari"), ("delete-account.html?lang=uz", "Hisobni oʻchirish")],
+    # Политика и условия — узбекская редакция (_src/legal_uz.py, сборка _src/build_legal.py).
+    "f_links": [("support.html?lang=uz", "Qoʻllab-quvvatlash"), ("privacy.html?lang=uz", "Maxfiylik siyosati"), ("terms.html?lang=uz", "Foydalanish shartlari"), ("delete-account.html?lang=uz", "Hisobni oʻchirish")],
     "f_demo": "Saytdagi ekranlar haqiqiy, maʼlumotlar namunaviy.",
 }
 
@@ -134,7 +134,7 @@ WORDS = {
 
 # Не переводить: марки, адреса почты, @имена, ссылки, HTML-сущности.
 PROTECT = re.compile(
-    r"&[#\w]+;|https?://\S+|[\w.+-]+@[\w.-]+\.\w+|@\w+|EASY ESTATE|KPI|Android|Google Play|App Store|Telegram"
+    r"&[#\w]+;|https?://\S+|[\w.+-]+@[\w.-]+\.\w+|@\w+|EASY ESTATE|KPI|Android|Google Play|Google Maps|Google|Gemini|Gmail|GitHub|Supabase|HTTPS|PDF|API|App Store|Telegram"
 )
 
 _PAIRS = {"oʻ": "ў", "gʻ": "ғ", "sh": "ш", "ch": "ч", "yo": "ё", "yu": "ю", "ya": "я", "ye": "е"}
