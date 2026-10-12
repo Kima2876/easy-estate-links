@@ -15,7 +15,7 @@ T_UZ = {
     "nav": [("how", "Qanday ishlaydi"), ("client", "Mijozlar uchun"), ("price", "Narxlar"), ("contact", "Aloqa")],
     "status": "Yopiq test rejimi · Android",
     "h1": "Rieltorning shaxsiy yordamchisi",
-    "lead": "Koʻchmas mulk agentlari va agentliklari uchun professional ish vositasi: obyektlar, mijozlar va obyektlar toʻplamlari yagona ilovada. Kundalik ish kamroq, KPI yuqoriroq, mijozlar bazasi esa doimo sizda qoladi.",
+    "lead": "Koʻchmas mulk agentlari va agentliklari uchun professional ish vositasi: obyektlar, mijozlar va obyektlar toʻplamlari yagona ilovada. Kundalik ish kamayadi, KPI oshadi, mijozlar bazasi esa doimo sizda qoladi.",
     "cta": "Biz bilan bogʻlanish",
     "cta2": "Imkoniyatlar bilan tanishish",
     "hero_note": "Ilovaning haqiqiy ekranlari (interfeys rus tilida), maʼlumotlar namunaviy: Toshkent",
