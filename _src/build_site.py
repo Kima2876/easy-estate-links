@@ -325,7 +325,7 @@ BODY = f'''<div class="page" data-title-ru="EASY ESTATE - инструмент �
 <script>{JS}</script>'''
 
 TITLE = "EASY ESTATE"
-DESC = "Личный рабочий инструмент риелтора: объекты, клиенты и подборки в одном приложении. A personal work tool for real estate agents."
+DESC = "Объекты, клиенты и подборки в одном приложении, база всегда ваша. A personal work tool for real estate agents."
 
 OG_IMAGE = "https://easyestate.solutions/assets/og-easyestate.jpg"
 
