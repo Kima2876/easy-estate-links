@@ -327,18 +327,34 @@ BODY = f'''<div class="page" data-title-ru="EASY ESTATE - инструмент �
 TITLE = "EASY ESTATE"
 DESC = "Личный рабочий инструмент риелтора: объекты, клиенты и подборки в одном приложении. A personal work tool for real estate agents."
 
-HEAD_META = f'''<title>{TITLE}</title>
-<meta name="description" content="{e(DESC)}">
-<meta property="og:title" content="EASY ESTATE">
-<meta property="og:description" content="{e(DESC)}">
+OG_IMAGE = "https://easyestate.solutions/assets/og-easyestate.jpg"
+
+
+def og_meta(url, title, desc):
+    """Превью ссылки в Telegram, WhatsApp и других мессенджерах (Open Graph)."""
+    return f'''<meta name="description" content="{e(desc)}">
+<meta property="og:site_name" content="EASY ESTATE">
+<meta property="og:title" content="{e(title)}">
+<meta property="og:description" content="{e(desc)}">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://easyestate.solutions/">
-<meta property="og:image" content="https://easyestate.solutions/assets/og-image.png">
+<meta property="og:url" content="{url}">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="uz_UZ">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="{OG_IMAGE}">
+<meta property="og:image:secure_url" content="{OG_IMAGE}">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="EASY ESTATE - личный рабочий инструмент риелтора">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://easyestate.solutions/">
-<link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">'''
+<meta name="twitter:image" content="{OG_IMAGE}">
+<link rel="canonical" href="{url}">
+<link rel="icon" href="/assets/logo-mark.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">'''
+
+
+HEAD_META = f"<title>{TITLE}</title>\n" + og_meta("https://easyestate.solutions/", "EASY ESTATE - личный рабочий инструмент риелтора", DESC)
 
 full = f'''<!DOCTYPE html>
 <html lang="ru">
@@ -483,8 +499,8 @@ def doc_block(slug, lang):
 
 
 for slug in PAGES:
-    head_extra = ('<meta name="robots" content="noindex">' if slug == "404"
-                  else f'<link rel="canonical" href="https://easyestate.solutions/{slug}.html">')
+    head_extra = ('<meta name="robots" content="noindex">\n<link rel="icon" href="/assets/logo-mark.svg" type="image/svg+xml">' if slug == "404"
+                  else og_meta(f"https://easyestate.solutions/{slug}.html", f"EASY ESTATE - {title_of(slug, 'ru')}", DESC))
     page_title = f'EASY ESTATE - {PAGES[slug]["title"]["ru"]} / {PAGES[slug]["title"]["en"]}'
     titles = " ".join(f'data-title-{L}="EASY ESTATE - {e(title_of(slug, L))}"' for L in LANGS)
     body = f'''<div class="page" {titles}>
@@ -499,7 +515,6 @@ for slug in PAGES:
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{e(page_title)}</title>
 {head_extra}
-<link rel="icon" href="/assets/logo-mark.svg" type="image/svg+xml">
 <style>{CSS}{DOC_CSS}</style>
 </head>
 <body>
