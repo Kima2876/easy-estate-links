@@ -195,7 +195,6 @@ def block(lang):
     flinks = "".join(f'<a href="{h}">{e(x)}</a>' for h, x in t["f_links"])
     return f'''
 <div class="lang-block" data-lang="{lang}" lang="{LANG_ATTR.get(lang, lang)}">
-  <nav class="topnav" aria-label="{'Разделы' if lang == 'ru' else 'Boʻlimlar' if lang == 'uz' else 'Бўлимлар' if lang == 'uz-cyrl' else 'Sections'}">{nav}</nav>
   <section class="hero">
     <div class="hero-text">
       <p class="status"><span class="dot" aria-hidden="true"></span>{e(t["status"])}</p>
@@ -272,11 +271,45 @@ def block(lang):
 CSS = (pathlib.Path(__file__).parent / "site.css").read_text(encoding="utf-8")
 JS = (pathlib.Path(__file__).parent / "site.js").read_text(encoding="utf-8")
 
-HEADER = f'''<header class="site-head">
-  <a class="brand" href="./" aria-label="EASY ESTATE">{LOGO}<span>EASY ESTATE</span></a>
-  <div class="langs" role="group" aria-label="Language / Язык / Til">
-    <a href="?lang=ru" data-l="ru">RU</a><a href="?lang=uz" data-l="uz" data-group="uz">UZ</a><a href="?lang=en" data-l="en">EN</a>
+MENU_LABELS = {
+    "ru": ("Главная", "Меню", "Разделы"),
+    "uz": ("Bosh sahifa", "Menyu", "Boʻlimlar"),
+    "uz-cyrl": ("Бош саҳифа", "Меню", "Бўлимлар"),
+    "en": ("Home", "Menu", "Sections"),
+}
+
+
+def header(home):
+    """Закреплённая шапка: логотип (на главную), разделы, язык, кнопка меню на телефоне.
+
+    home=True — главная (ссылки на разделы — якоря на этой странице), иначе ссылки ведут на главную.
+    """
+    navs, panels = [], []
+    for L in LANGS:
+        t = T[L]
+        q = f"?lang={L}"
+        pre = "" if home else f"/{q}"
+        sec = [(f"{pre}#{a}-{L}", x, f"{a}-{L}") for a, x in t["nav"]]
+        sup = (f"/support.html{q}", t["f_links"][0][1])
+        home_lbl, _, sec_lbl = MENU_LABELS[L]
+        links = "".join(f'<a href="{h}" data-sec="{i}">{e(x)}</a>' for h, x, i in sec)
+        navs.append(f'<nav class="lang-block mainnav" data-lang="{L}" lang="{LANG_ATTR.get(L, L)}" aria-label="{e(sec_lbl)}">'
+                    f'{links}<a href="{sup[0]}">{e(sup[1])}</a></nav>')
+        items = (f'<a href="/{q}" class="menu-home">{e(home_lbl)}</a>' + links + f'<a href="{sup[0]}">{e(sup[1])}</a>')
+        panels.append(f'<nav class="lang-block menu-list" data-lang="{L}" lang="{LANG_ATTR.get(L, L)}" aria-label="{e(sec_lbl)}">{items}</nav>')
+    btn_labels = " ".join(f'data-label-{L}="{e(MENU_LABELS[L][1])}"' for L in LANGS)
+    return f'''<header class="site-head">
+  <a class="brand" href="/" data-home aria-label="EASY ESTATE">{LOGO}<span>EASY ESTATE</span></a>
+  <div class="mainnavs">{"".join(navs)}</div>
+  <div class="head-end">
+    <div class="langs" role="group" aria-label="Language / Язык / Til">
+      <a href="?lang=ru" data-l="ru">RU</a><a href="?lang=uz" data-l="uz" data-group="uz">UZ</a><a href="?lang=en" data-l="en">EN</a>
+    </div>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Меню" {btn_labels}>
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path class="i-open" d="M4 7h16M4 12h16M4 17h16"/><path class="i-close" d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
   </div>
+  <div class="menu-panel" id="menu-panel" hidden>{"".join(panels)}</div>
 </header>
 <div class="scriptbar" hidden>
   <span class="scriptbar-label">Yozuv / Ёзув</span>
@@ -286,7 +319,7 @@ HEADER = f'''<header class="site-head">
 </div>'''
 
 BODY = f'''<div class="page" data-title-ru="EASY ESTATE - инструмент риелтора" data-title-uz="{uz.TITLE_UZ}" data-title-uz-cyrl="{uz.to_cyrl(uz.TITLE_UZ)}" data-title-en="EASY ESTATE - a tool for real estate agents">
-{HEADER}
+{header(True)}
 <main>{"".join(block(L) for L in LANGS)}</main>
 </div>
 <script>{JS}</script>'''
@@ -455,7 +488,7 @@ for slug in PAGES:
     page_title = f'EASY ESTATE - {PAGES[slug]["title"]["ru"]} / {PAGES[slug]["title"]["en"]}'
     titles = " ".join(f'data-title-{L}="EASY ESTATE - {e(title_of(slug, L))}"' for L in LANGS)
     body = f'''<div class="page" {titles}>
-{HEADER.replace('href="./"', 'href="/"')}
+{header(False)}
 <main>{"".join(doc_block(slug, L) for L in LANGS)}</main>
 </div>
 <script>{JS}</script>'''
