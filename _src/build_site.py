@@ -39,21 +39,21 @@ T = {
         "p_src": "Оценка основателя по опыту рынка",
         "p_items": [
             ("Объявление", "Клиент звонит, и всё уточняется заново"),
-            ("Мессенджеры", "Варианты и голосовые вперемешку"),
-            ("Путаница", "Что к какому объекту, непонятно обоим"),
+            ("Мессенджеры", "Варианты и голосовые сообщения вперемешку"),
+            ("Путаница", "Обеим сторонам непонятно, что к какому объекту относится"),
             ("Объект уже продан", "Или был приманкой для сбора контактов"),
         ],
         "s_eyebrow": "Как работает",
         "s_h": "Риелтор говорит, клиент выбирает",
         "steps": [
-            ("Голос на объекте", "Наговорите объект прямо на месте. ИИ разложит сказанное по полям, даже без сети, и покажет, что понял.", "01_voice", "Экран «Вот что я понял»: голос разложен по полям"),
+            ("Голос на объекте", "Продиктуйте описание объекта прямо на месте. ИИ разложит сказанное по полям, даже без сети, и покажет, что понял.", "01_voice", "Экран «Вот что я понял»: голос разложен по полям"),
             ("Приватное под замком", "Цена собственника, комиссия и контакты видны только вам. Сервер не отдаёт их клиенту.", "02_private", "Блок «Только для вас» в карточке объекта", "Клиент этого не видит"),
             ("Клиент ставит звёзды", "Клиент смотрит ваши объекты в своём приложении и оценивает их. Вы видите, что понравилось.", "03_client_list", "Приложение клиента: объекты риелтора с оценками"),
         ],
         "c_eyebrow": "Клиенту витрина, риелтору порядок",
         "c_h": "Всё, что обычно теряется в переписке",
         "c_items": [
-            ("Звёзды 1-5 и «Скрыть»", "Клиент оценивает объекты без переписки"),
+            ("Звёзды 1-5 и «Скрыть»", "Клиент оценивает объекты без лишней переписки"),
             ("Цена в валюте клиента", "Пересчёт по курсу автоматически"),
             ("22 языка", "У риелтора и клиента свой язык интерфейса"),
             ("Работает без сети", "Всё отправится, когда появится связь"),
@@ -75,7 +75,7 @@ T = {
         "pr_cards": [
             ("Пробный период", "0", "", "Все функции, чтобы попробовать приложение в работе"),
             ("Месяц", "10", "в месяц", "Голосовое заполнение объектов с ИИ входит в подписку"),
-            ("Год", "100", "в год", "Выгоднее помесячной оплаты на $20, это два месяца"),
+            ("Год", "100", "в год", "На $20 выгоднее помесячной оплаты: два месяца бесплатно"),
         ],
         "pr_free": "Клиентам риелтора приложение бесплатно всегда.",
         "pr_tax": "Цены указаны без налога страны покупателя.",
@@ -92,66 +92,66 @@ T = {
         "nav": [("how", "How it works"), ("client", "For clients"), ("price", "Pricing"), ("contact", "Contact")],
         "status": "Closed beta · Android",
         "h1": "A personal assistant for real estate agents",
-        "lead": "A professional work tool for real estate agents and agencies: properties, clients and selections in one app. Less routine, higher KPI, and the base is always yours.",
+        "lead": "A professional tool for real estate agents and agencies: properties, clients and curated selections in one app. Less routine, higher KPIs, and your database always stays yours.",
         "cta": "Get in touch",
         "cta2": "See how it works",
-        "hero_note": "Real app screens, demo data: Tashkent",
-        "hero_alt": ["Agent home screen: today's tasks and the base", "Property card with price and details"],
+        "hero_note": "Real app screens with demo data (Tashkent)",
+        "hero_alt": ["Agent home screen: today's tasks and database", "Property card with price and details"],
         "p_eyebrow": "Problem",
-        "p_h": "Agents spend the day on the phone, not on deals",
+        "p_h": "Agents spend their day on the phone instead of closing deals",
         "p_big": "up to 80%",
-        "p_big_txt": "of working time goes to calls and chats instead of properties and clients",
+        "p_big_txt": "of working time goes to calls and messaging instead of properties and clients",
         "p_src": "Founder's estimate based on market experience",
         "p_items": [
-            ("Listing", "A client calls and everything is clarified from scratch"),
-            ("Messengers", "Options and voice notes all mixed up"),
-            ("Confusion", "Neither side knows what refers to which property"),
-            ("Already sold", "Or it was bait to collect contacts"),
+            ("Listing inquiries", "Every call means going over the same details again"),
+            ("Messengers", "Listings and voice notes get mixed up"),
+            ("Confusion", "Neither side is sure which message refers to which property"),
+            ("Already sold", "Or the listing was just bait to collect contacts"),
         ],
         "s_eyebrow": "How it works",
-        "s_h": "The agent speaks, the client chooses",
+        "s_h": "The agent dictates, the client chooses",
         "steps": [
-            ("Voice at the property", "Dictate the property on site. AI sorts what you said into fields, even offline, and shows what it understood.", "en_01_voice", "Here is what I understood: voice sorted into fields"),
-            ("Private stays private", "The owner's price, commission and contacts are visible only to you. The server never sends them to the client.", "en_02_private", "Only for you block in the property card", "Hidden from the client"),
-            ("The client rates with stars", "The client browses your properties in their own app and rates them. You see what they liked.", "en_03_client_list", "Client app: the agent's properties with ratings"),
+            ("Voice input on site", "Describe the property while you are there. AI sorts your words into the right fields, even offline, and shows you what it understood.", "en_01_voice", "Here is what I understood: voice sorted into fields"),
+            ("Private data stays private", "The owner's price, your commission and contacts are visible only to you. The server never shares them with clients.", "en_02_private", "Only for you block in the property card", "Hidden from the client"),
+            ("Clients rate properties", "Clients browse your properties in their own app and rate them. You see exactly what they liked.", "en_03_client_list", "Client app: the agent's properties with ratings"),
         ],
-        "c_eyebrow": "A showcase for the client, order for the agent",
-        "c_h": "Everything that usually gets lost in chats",
+        "c_eyebrow": "A showcase for clients, order for agents",
+        "c_h": "Everything that usually gets lost in chats, in one place",
         "c_items": [
-            ("1-5 stars and “Hide”", "The client rates properties without any chat"),
-            ("Price in the client's currency", "Converted at the current rate automatically"),
-            ("22 languages", "The agent and the client each use their own"),
-            ("Works offline", "Everything syncs once the connection returns"),
+            ("1-5 stars and “Hide”", "Clients rate properties without back-and-forth messaging"),
+            ("Prices in the client's currency", "Converted automatically at the current rate"),
+            ("22 languages", "Agents and clients each use the app in their own language"),
+            ("Works offline", "Changes sync as soon as you are back online"),
         ],
         "c_soon_label": "Coming soon",
-        "c_soon": "Selections by link, viewing booking and property chat",
+        "c_soon": "Shareable selections, viewing bookings and property chat",
         "c_tags": ["Client", "Agent"],
         "c_alts": ["Property card in the client app with star rating", "The agent's property list with filters"],
-        "b_eyebrow": "The key difference",
-        "b_h": "The base belongs to the agent",
+        "b_eyebrow": "What sets us apart",
+        "b_h": "Your database belongs to you",
         "b_items": [
-            ("Your base", "Move to another agency and the base moves with you. Exporting your base will be available before the paid launch."),
-            ("Locked fields", "The owner's price, commission and contacts are locked on the server, not just hidden on screen."),
-            ("Full cycle", "Property, client, selection, ratings and viewing in one place, without spreadsheets and notes in messengers."),
+            ("Your database", "If you move to another agency, your database moves with you. Full database export will be available before the paid launch."),
+            ("Protected fields", "The owner's price, commission and contacts are protected on the server, not merely hidden on screen."),
+            ("End-to-end workflow", "Properties, clients, selections, ratings and viewings in one place, with no spreadsheets or notes scattered across messengers."),
         ],
         "pr_eyebrow": "Pricing",
         "pr_h": "One subscription, no tiers",
-        "pr_note": "The app is in closed beta and free for testers. Prices apply after the launch on Google Play and the App Store.",
+        "pr_note": "The app is currently in closed beta and free for testers. Pricing takes effect once the app launches on Google Play and the App Store.",
         "pr_cards": [
-            ("Free trial", "0", "", "Every feature, so you can try the app at work"),
-            ("Monthly", "10", "per month", "AI voice filling of properties is included"),
-            ("Yearly", "100", "per year", "$20 less than paying monthly, that is two months"),
+            ("Free trial", "0", "", "Full access to every feature, so you can test the app in your daily work"),
+            ("Monthly", "10", "per month", "AI voice input for properties is included"),
+            ("Yearly", "100", "per year", "Save $20 compared with monthly billing: two months free"),
         ],
-        "pr_free": "The app is always free for the agent's clients.",
-        "pr_tax": "Prices exclude the buyer's local tax.",
+        "pr_free": "The app is always free for your clients.",
+        "pr_tax": "Prices exclude local taxes in the buyer's country.",
         "ct_eyebrow": "Contact",
-        "ct_h": "Want to try it or ask a question?",
-        "ct_p": "Write to us. Agents from Uzbekistan, the UAE, Thailand and Indonesia are first in line for the beta.",
+        "ct_h": "Interested in trying it or have a question?",
+        "ct_p": "Get in touch. Agents in Uzbekistan, the UAE, Thailand and Indonesia get priority access to the beta.",
         "copy": "Copy address",
         "copied": "Address copied",
         "f_company": "EASY ESTATE LLC, Taxpayer ID 307553192, Tashkent, Uzbekistan",
         "f_links": [("support.html?lang=en", "Support"), ("privacy.html?lang=en", "Privacy Policy"), ("terms.html?lang=en", "Terms of Use"), ("delete-account.html?lang=en", "Delete account")],
-        "f_demo": "The screens on this site are real; the data is demo.",
+        "f_demo": "The screens on this site are real; the data is for demonstration only.",
     },
 }
 
@@ -406,9 +406,9 @@ PAGES = {  # ru и en здесь; uz и uz-cyrl — из uz.page_uz()
 <section><h2>Данные и учётная запись</h2>
 <p>Вопросы о персональных данных: {PRIVACY_MAIL}. Как удалить аккаунт: <a href="delete-account.html?lang=ru">Удаление аккаунта</a>.</p></section>''',
         "en": lambda: f'''
-<p class="lead">We answer questions about the app, the beta and your account.</p>
+<p class="lead">We are happy to help with questions about the app, the beta and your account.</p>
 <section><h2>Telegram</h2>
-<p>The EASY ESTATE support bot: send it a question or feedback.</p>
+<p>The EASY ESTATE support bot: send us your question or feedback.</p>
 <p><a class="btn" href="https://t.me/{BOT}">@{BOT}</a></p></section>
 <section><h2>Email</h2>{mail(SUPPORT_MAIL, "en")}</section>
 <section><h2>Data and account</h2>
@@ -437,15 +437,15 @@ PAGES = {  # ru и en здесь; uz и uz-cyrl — из uz.page_uz()
 <section><h2>How to request deletion</h2>
 <ol class="doc-steps">
 <li>Send an email to the address below from the email your account is registered with.</li>
-<li>Use the subject “Delete account”. No reason is needed.</li>
-<li>We delete the account and related data within 30 days and confirm by reply.</li>
+<li>Use the subject “Delete account”. No reason is required.</li>
+<li>We will delete the account and related data within 30 days and confirm by email.</li>
 </ol>
 {mail(PRIVACY_MAIL, "en")}
 <p class="small">In-app deletion will be available before the public launch.</p></section>
 <section><h2>What is deleted</h2>
 <p>Your account and profile, the agent’s base (properties, photos and videos, clients and owners, requests, tasks, documents), the client’s connection with the agent, ratings and hidden properties, conversations with the AI assistant.</p></section>
 <section><h2>What is kept and for how long</h2>
-<p>The log of the agent’s actions with property documents is kept for 3 years after the document is deleted. Technical events remain without any link to the account. Anonymous monthly totals of AI assistant usage contain none of your data.</p></section>
+<p>The log of the agent’s actions with property documents is kept for 3 years after the document is deleted. Technical events remain without any link to the account. Anonymous monthly AI assistant usage statistics contain none of your personal data.</p></section>
 <section><h2>If you are an agent’s client</h2>
 <p>Your account is deleted the same way. Data about you that an agent entered into their own base is deleted by that agent; if they do not respond, write to us.</p></section>''',
     },
@@ -455,7 +455,7 @@ PAGES = {  # ru и en здесь; uz и uz-cyrl — из uz.page_uz()
 <p class="lead">Такой страницы нет. Возможно, ссылка устарела.</p>
 <p><a class="btn" href="/">На главную</a></p>''',
         "en": lambda: '''
-<p class="lead">This page does not exist. The link may be out of date.</p>
+<p class="lead">This page does not exist. The link may be outdated.</p>
 <p><a class="btn" href="/">Go to the home page</a></p>''',
     },
 }
