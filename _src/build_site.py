@@ -26,8 +26,8 @@ T = {
     "ru": {
         "nav": [("how", "Как работает"), ("client", "Клиенту"), ("price", "Цены"), ("contact", "Контакты")],
         "status": "Закрытое тестирование · Android",
-        "h1": "Личный рабочий инструмент риелтора",
-        "lead": "Меньше операционки при большем KPI. Объекты, клиенты и подборки в одном приложении, и база всегда принадлежит вам.",
+        "h1": "Личный помощник риелтора",
+        "lead": "Профессиональный рабочий инструмент агента по недвижимости: объекты, клиенты и подборки в одном приложении. Меньше операционки при большем KPI, а база всегда ваша.",
         "cta": "Связаться",
         "cta2": "Как это работает",
         "hero_note": "Настоящие экраны приложения, демо-данные: Ташкент",
@@ -91,8 +91,8 @@ T = {
     "en": {
         "nav": [("how", "How it works"), ("client", "For clients"), ("price", "Pricing"), ("contact", "Contact")],
         "status": "Closed beta · Android",
-        "h1": "A personal work tool for real estate agents",
-        "lead": "Less routine, higher KPI. Properties, clients and selections in one app, and the base always belongs to you.",
+        "h1": "A personal assistant for real estate agents",
+        "lead": "A professional work tool for real estate agents and agencies: properties, clients and selections in one app. Less routine, higher KPI, and the base is always yours.",
         "cta": "Get in touch",
         "cta2": "See how it works",
         "hero_note": "Real app screens, demo data: Tashkent",
@@ -318,16 +318,16 @@ def header(home):
   </div>
 </div>'''
 
-BODY = f'''<div class="page" data-title-ru="EASY ESTATE - инструмент риелтора" data-title-uz="{uz.TITLE_UZ}" data-title-uz-cyrl="{uz.to_cyrl(uz.TITLE_UZ)}" data-title-en="EASY ESTATE - a tool for real estate agents">
+BODY = f'''<div class="page" data-title-ru="EASY ESTATE - личный помощник риелтора" data-title-uz="{uz.TITLE_UZ}" data-title-uz-cyrl="{uz.to_cyrl(uz.TITLE_UZ)}" data-title-en="EASY ESTATE - a personal assistant for real estate agents">
 {header(True)}
 <main>{"".join(block(L) for L in LANGS)}</main>
 </div>
 <script>{JS}</script>'''
 
 TITLE = "EASY ESTATE"
-DESC = "Объекты, клиенты и подборки в одном приложении, база всегда ваша. A personal work tool for real estate agents."
+DESC = "Профессиональный рабочий инструмент: объекты, клиенты и подборки в одном приложении, база всегда ваша. A personal assistant for real estate agents and agencies."
 
-OG_IMAGE = "https://easyestate.solutions/assets/og-easyestate.jpg"
+OG_IMAGE = "https://easyestate.solutions/assets/og-easyestate-2.jpg"
 
 
 def og_meta(url, title, desc):
@@ -346,7 +346,7 @@ def og_meta(url, title, desc):
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="EASY ESTATE - личный рабочий инструмент риелтора">
+<meta property="og:image:alt" content="EASY ESTATE - личный помощник риелтора">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{OG_IMAGE}">
 <link rel="canonical" href="{url}">
@@ -354,7 +354,7 @@ def og_meta(url, title, desc):
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">'''
 
 
-HEAD_META = f"<title>{TITLE}</title>\n" + og_meta("https://easyestate.solutions/", "Личный рабочий инструмент риелтора", DESC)
+HEAD_META = f"<title>{TITLE}</title>\n" + og_meta("https://easyestate.solutions/", "Личный помощник риелтора", DESC)
 
 full = f'''<!DOCTYPE html>
 <html lang="ru">

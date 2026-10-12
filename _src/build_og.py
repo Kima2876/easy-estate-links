@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Картинка превью ссылки (Open Graph) 1200x630 для мессенджеров: assets/og-easyestate.jpg.
+"""Картинка превью ссылки (Open Graph) 1200x630 для мессенджеров: assets/og-easyestate-2.jpg.
 
 Запуск: python3 _src/build_og.py (нужны Pillow и шрифт Liberation Sans Bold — аналог Arial по брендбуку).
 """
@@ -19,12 +19,12 @@ logo = Image.open(ROOT / "_src/og/logo_mark_light.png").convert("RGBA").resize((
 img.paste(logo, (64, 64), logo)
 d.text((152, 84), "EASY ESTATE", font=ImageFont.truetype(FONT_B, 34), fill=FG)
 
-f_h = ImageFont.truetype(FONT_B, 60)
-y = 200
-for line in ["Личный рабочий", "инструмент", "риелтора"]:
+f_h = ImageFont.truetype(FONT_B, 64)
+y = 220
+for line in ["Личный помощник", "риелтора"]:
     d.text((64, y), line, font=f_h, fill=FG)
     y += 70
-d.text((64, y + 24), "A personal work tool for real estate agents", font=ImageFont.truetype(FONT_R, 26), fill=MUTED)
+d.text((64, y + 24), "A personal assistant for real estate agents", font=ImageFont.truetype(FONT_R, 26), fill=MUTED)
 d.text((64, H - 70), "easyestate.solutions", font=ImageFont.truetype(FONT_B, 26), fill=MUTED)
 
 # Телефон справа: настоящий экран карточки объекта, верх экрана.
@@ -41,6 +41,6 @@ ImageDraw.Draw(inner).rounded_rectangle([0, 0, pw - 1, ph - 1], radius=30, fill=
 frame.paste(shot, (bez, bez), inner)
 img.paste(frame, (x0, y0), mask)
 
-out = ROOT / "assets/og-easyestate.jpg"
+out = ROOT / "assets/og-easyestate-2.jpg"
 img.save(out, "JPEG", quality=86, optimize=True, progressive=True)
 print(out, out.stat().st_size)
