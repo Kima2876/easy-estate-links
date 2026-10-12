@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Картинка превью ссылки (Open Graph) 1200x630 для мессенджеров: assets/og-image.png.
+"""Картинка превью ссылки (Open Graph) 1200x630 для мессенджеров: assets/og-easyestate.jpg.
 
 Запуск: python3 _src/build_og.py (нужны Pillow и шрифт Liberation Sans Bold — аналог Arial по брендбуку).
 """
@@ -41,6 +41,6 @@ ImageDraw.Draw(inner).rounded_rectangle([0, 0, pw - 1, ph - 1], radius=30, fill=
 frame.paste(shot, (bez, bez), inner)
 img.paste(frame, (x0, y0), mask)
 
-out = ROOT / "assets/og-image.png"
-img.save(out, optimize=True)
+out = ROOT / "assets/og-easyestate.jpg"
+img.save(out, "JPEG", quality=86, optimize=True, progressive=True)
 print(out, out.stat().st_size)
