@@ -15,7 +15,9 @@
       if (links[j].getAttribute('data-l') === lang) links[j].setAttribute('aria-current', 'true');
       else links[j].removeAttribute('aria-current');
     }
-    document.title = lang === 'ru' ? 'EASY ESTATE - инструмент риелтора' : 'EASY ESTATE - a tool for real estate agents';
+    var page = document.querySelector('.page');
+    var t = page && page.getAttribute('data-title-' + lang);
+    if (t) document.title = t;
   }
   var q = null;
   try { q = new URLSearchParams(window.location.search).get('lang'); } catch (e) { q = null; }

@@ -81,7 +81,7 @@ T = {
         "copy": "Скопировать адрес",
         "copied": "Адрес скопирован",
         "f_company": "ООО «EASY ESTATE», ИНН 307553192, Ташкент, Узбекистан",
-        "f_links": [("privacy.html?lang=ru", "Политика конфиденциальности"), ("terms.html?lang=ru", "Условия использования")],
+        "f_links": [("support.html?lang=ru", "Поддержка"), ("privacy.html?lang=ru", "Политика конфиденциальности"), ("terms.html?lang=ru", "Условия использования"), ("delete-account.html?lang=ru", "Удаление аккаунта")],
         "f_demo": "Экраны на сайте настоящие, данные демонстрационные.",
     },
     "en": {
@@ -146,7 +146,7 @@ T = {
         "copy": "Copy address",
         "copied": "Address copied",
         "f_company": "EASY ESTATE LLC, Taxpayer ID 307553192, Tashkent, Uzbekistan",
-        "f_links": [("privacy.html?lang=en", "Privacy Policy"), ("terms.html?lang=en", "Terms of Use")],
+        "f_links": [("support.html?lang=en", "Support"), ("privacy.html?lang=en", "Privacy Policy"), ("terms.html?lang=en", "Terms of Use"), ("delete-account.html?lang=en", "Delete account")],
         "f_demo": "The screens on this site are real; the data is demo.",
     },
 }
@@ -269,7 +269,7 @@ HEADER = f'''<header class="site-head">
   </div>
 </header>'''
 
-BODY = f'''<div class="page">
+BODY = f'''<div class="page" data-title-ru="EASY ESTATE - инструмент риелтора" data-title-en="EASY ESTATE - a tool for real estate agents">
 {HEADER}
 <main>{block("ru")}{block("en")}</main>
 </div>
@@ -283,6 +283,12 @@ HEAD_META = f'''<title>{TITLE}</title>
 <meta property="og:title" content="EASY ESTATE">
 <meta property="og:description" content="{e(DESC)}">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://easyestate.solutions/">
+<meta property="og:image" content="https://easyestate.solutions/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://easyestate.solutions/">
 <link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">'''
 
 full = f'''<!DOCTYPE html>
@@ -305,3 +311,144 @@ preview = f'''<title>{TITLE}</title>
 '''
 (ROOT / "_src" / "preview.html").write_text(preview, encoding="utf-8")
 print("ok", len(full), len(preview))
+
+# ---------------------------------------------------------------------------
+# Служебные страницы: поддержка, удаление аккаунта, 404 (решение 268 (5), site_v1 3.3, 3.4, 3.8).
+# Адреса ящиков — как в политике конфиденциальности и условиях (privacy@, support@).
+# ---------------------------------------------------------------------------
+
+SUPPORT_MAIL = "support@easyestate.solutions"
+PRIVACY_MAIL = "privacy@easyestate.solutions"
+BOT = "EasyEstateAppBot"
+
+
+def mail(addr, lang):
+    t = T[lang]
+    return (f'<div class="mail"><a class="mail-addr" href="mailto:{addr}">{addr}</a>'
+            f'<button type="button" class="btn btn--ghost copy" data-copied="{e(t["copied"])}">{e(t["copy"])}</button>'
+            f'<span class="copy-status" role="status" aria-live="polite"></span></div>')
+
+
+PAGES = {
+    "support": {
+        "title": {"ru": "Поддержка", "en": "Support"},
+        "ru": lambda: f'''
+<p class="lead">Ответим на вопросы о приложении, тестировании и вашей учётной записи.</p>
+<section><h2>Telegram</h2>
+<p>Бот поддержки EASY ESTATE: напишите ему вопрос или отзыв.</p>
+<p><a class="btn" href="https://t.me/{BOT}">@{BOT}</a></p></section>
+<section><h2>Электронная почта</h2>{mail(SUPPORT_MAIL, "ru")}</section>
+<section><h2>Данные и учётная запись</h2>
+<p>Вопросы о персональных данных: {PRIVACY_MAIL}. Как удалить аккаунт: <a href="delete-account.html?lang=ru">Удаление аккаунта</a>.</p></section>''',
+        "en": lambda: f'''
+<p class="lead">We answer questions about the app, the beta and your account.</p>
+<section><h2>Telegram</h2>
+<p>The EASY ESTATE support bot: send it a question or feedback.</p>
+<p><a class="btn" href="https://t.me/{BOT}">@{BOT}</a></p></section>
+<section><h2>Email</h2>{mail(SUPPORT_MAIL, "en")}</section>
+<section><h2>Data and account</h2>
+<p>Questions about personal data: {PRIVACY_MAIL}. How to delete your account: <a href="delete-account.html?lang=en">Delete account</a>.</p></section>''',
+    },
+    "delete-account": {
+        "title": {"ru": "Удаление аккаунта", "en": "Delete your account"},
+        "ru": lambda: f'''
+<p class="lead">Приложение EASY ESTATE, разработчик ООО «EASY ESTATE». Здесь описано, как удалить учётную запись и связанные с ней данные.</p>
+<section><h2>Как запросить удаление</h2>
+<ol class="doc-steps">
+<li>Напишите письмо на адрес ниже с той почты, на которую зарегистрирован аккаунт.</li>
+<li>В теме укажите «Удаление аккаунта». Пояснять причину не нужно.</li>
+<li>Мы удалим аккаунт и связанные данные в течение 30 дней и сообщим об этом ответным письмом.</li>
+</ol>
+{mail(PRIVACY_MAIL, "ru")}
+<p class="small">Удаление прямо в приложении появится до публичного запуска.</p></section>
+<section><h2>Что удаляется</h2>
+<p>Учётная запись и анкета, база риелтора (объекты, фото и видео, клиенты и собственники, запросы, дела, документы), связь клиента с риелтором, оценки и скрытые объекты, переписка с ИИ-помощником.</p></section>
+<section><h2>Что остаётся и сколько</h2>
+<p>Журнал действий риелтора с документами объектов хранится 3 года после удаления документа. Технические события остаются без привязки к аккаунту. Обезличенные итоги использования ИИ-помощника за месяц не содержат ваших данных.</p></section>
+<section><h2>Если вы клиент риелтора</h2>
+<p>Ваш аккаунт удаляется так же. Данные о вас, которые риелтор внёс в свою базу сам, удалит риелтор; если он не отвечает, напишите нам.</p></section>''',
+        "en": lambda: f'''
+<p class="lead">The EASY ESTATE app, developed by EASY ESTATE LLC. This page explains how to delete your account and the data linked to it.</p>
+<section><h2>How to request deletion</h2>
+<ol class="doc-steps">
+<li>Send an email to the address below from the email your account is registered with.</li>
+<li>Use the subject “Delete account”. No reason is needed.</li>
+<li>We delete the account and related data within 30 days and confirm by reply.</li>
+</ol>
+{mail(PRIVACY_MAIL, "en")}
+<p class="small">In-app deletion will be available before the public launch.</p></section>
+<section><h2>What is deleted</h2>
+<p>Your account and profile, the agent’s base (properties, photos and videos, clients and owners, requests, tasks, documents), the client’s connection with the agent, ratings and hidden properties, conversations with the AI assistant.</p></section>
+<section><h2>What is kept and for how long</h2>
+<p>The log of the agent’s actions with property documents is kept for 3 years after the document is deleted. Technical events remain without any link to the account. Anonymous monthly totals of AI assistant usage contain none of your data.</p></section>
+<section><h2>If you are an agent’s client</h2>
+<p>Your account is deleted the same way. Data about you that an agent entered into their own base is deleted by that agent; if they do not respond, write to us.</p></section>''',
+    },
+    "404": {
+        "title": {"ru": "Страница не найдена", "en": "Page not found"},
+        "ru": lambda: '''
+<p class="lead">Такой страницы нет. Возможно, ссылка устарела.</p>
+<p><a class="btn" href="/">На главную</a></p>''',
+        "en": lambda: '''
+<p class="lead">This page does not exist. The link may be out of date.</p>
+<p><a class="btn" href="/">Go to the home page</a></p>''',
+    },
+}
+
+DOC_CSS = """
+.doc { padding-inline: max(16px, calc((100% - 760px) / 2)); padding-block: 48px 64px; display: flex; flex-direction: column; gap: 28px; }
+.doc h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.1; max-width: none; }
+.doc section { display: flex; flex-direction: column; gap: 10px; }
+.doc h2 { font-size: 22px; max-width: none; }
+.doc p { max-width: 40em; }
+.doc .lead { font-size: 19px; color: var(--muted); }
+.doc-steps { list-style: decimal; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; max-width: 40em; }
+.doc .btn { align-self: flex-start; }
+"""
+
+
+def doc_block(slug, lang):
+    pg = PAGES[slug]
+    t = T[lang]
+    flinks = "".join(f'<a href="{h}">{e(x)}</a>' for h, x in t["f_links"])
+    return f'''
+<div class="lang-block" data-lang="{lang}" lang="{lang}">
+  <article class="doc"><h1>{e(pg["title"][lang])}</h1>{pg[lang]()}</article>
+  <footer class="foot"><p>{e(t["f_company"])}</p><p class="foot-links">{flinks}</p></footer>
+</div>'''
+
+
+for slug in PAGES:
+    head_extra = ('<meta name="robots" content="noindex">' if slug == "404"
+                  else f'<link rel="canonical" href="https://easyestate.solutions/{slug}.html">')
+    page_title = f'EASY ESTATE - {PAGES[slug]["title"]["ru"]} / {PAGES[slug]["title"]["en"]}'
+    body = f'''<div class="page" data-title-ru="EASY ESTATE - {e(PAGES[slug]["title"]["ru"])}" data-title-en="EASY ESTATE - {e(PAGES[slug]["title"]["en"])}">
+{HEADER.replace('href="./"', 'href="/"')}
+<main>{doc_block(slug, "ru")}{doc_block(slug, "en")}</main>
+</div>
+<script>{JS}</script>'''
+    doc = f'''<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{e(page_title)}</title>
+{head_extra}
+<link rel="icon" href="/assets/logo-mark.svg" type="image/svg+xml">
+<style>{CSS}{DOC_CSS}</style>
+</head>
+<body>
+{body}
+</body>
+</html>
+'''
+    (ROOT / f"{slug}.html").write_text(doc, encoding="utf-8")
+    print("page", slug, len(doc))
+
+(ROOT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://easyestate.solutions/sitemap.xml\n", encoding="utf-8")
+urls = ["", "support.html", "delete-account.html", "privacy.html", "terms.html"]
+(ROOT / "sitemap.xml").write_text(
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + "".join(f"  <url><loc>https://easyestate.solutions/{u}</loc></url>\n" for u in urls)
+    + "</urlset>\n", encoding="utf-8")
+print("robots, sitemap")

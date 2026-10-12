@@ -8,6 +8,12 @@
 <meta property="og:title" content="EASY ESTATE">
 <meta property="og:description" content="Личный рабочий инструмент риелтора: объекты, клиенты и подборки в одном приложении. A personal work tool for real estate agents.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://easyestate.solutions/">
+<meta property="og:image" content="https://easyestate.solutions/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://easyestate.solutions/">
 <link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">
 <style>/* Layout: светлые секции по сетке 1120px, настоящие экраны в рамке телефона; одна зелёная полоса бренда («база принадлежит риелтору»). Цвета — дизайн-система приложения (brand900 #4A7640), шрифт Arial по брендбуку. */
 :root {
@@ -195,7 +201,7 @@ h1 { font-size: clamp(36px, 5.6vw, 64px); line-height: 1.04; letter-spacing: -0.
 </style>
 </head>
 <body>
-<div class="page">
+<div class="page" data-title-ru="EASY ESTATE - инструмент риелтора" data-title-en="EASY ESTATE - a tool for real estate agents">
 <header class="site-head">
   <a class="brand" href="./" aria-label="EASY ESTATE"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 491 492" aria-hidden="true" focusable="false">
   
@@ -277,7 +283,7 @@ h1 { font-size: clamp(36px, 5.6vw, 64px); line-height: 1.04; letter-spacing: -0.
 
   <footer class="foot">
     <p>ООО «EASY ESTATE», ИНН 307553192, Ташкент, Узбекистан</p>
-    <p class="foot-links"><a href="privacy.html?lang=ru">Политика конфиденциальности</a><a href="terms.html?lang=ru">Условия использования</a></p>
+    <p class="foot-links"><a href="support.html?lang=ru">Поддержка</a><a href="privacy.html?lang=ru">Политика конфиденциальности</a><a href="terms.html?lang=ru">Условия использования</a><a href="delete-account.html?lang=ru">Удаление аккаунта</a></p>
     <p class="small">Экраны на сайте настоящие, данные демонстрационные.</p>
   </footer>
 </div>
@@ -350,7 +356,7 @@ h1 { font-size: clamp(36px, 5.6vw, 64px); line-height: 1.04; letter-spacing: -0.
 
   <footer class="foot">
     <p>EASY ESTATE LLC, Taxpayer ID 307553192, Tashkent, Uzbekistan</p>
-    <p class="foot-links"><a href="privacy.html?lang=en">Privacy Policy</a><a href="terms.html?lang=en">Terms of Use</a></p>
+    <p class="foot-links"><a href="support.html?lang=en">Support</a><a href="privacy.html?lang=en">Privacy Policy</a><a href="terms.html?lang=en">Terms of Use</a><a href="delete-account.html?lang=en">Delete account</a></p>
     <p class="small">The screens on this site are real; the data is demo.</p>
   </footer>
 </div></main>
@@ -372,7 +378,9 @@ h1 { font-size: clamp(36px, 5.6vw, 64px); line-height: 1.04; letter-spacing: -0.
       if (links[j].getAttribute('data-l') === lang) links[j].setAttribute('aria-current', 'true');
       else links[j].removeAttribute('aria-current');
     }
-    document.title = lang === 'ru' ? 'EASY ESTATE - инструмент риелтора' : 'EASY ESTATE - a tool for real estate agents';
+    var page = document.querySelector('.page');
+    var t = page && page.getAttribute('data-title-' + lang);
+    if (t) document.title = t;
   }
   var q = null;
   try { q = new URLSearchParams(window.location.search).get('lang'); } catch (e) { q = null; }
