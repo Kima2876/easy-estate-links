@@ -354,7 +354,7 @@ def og_meta(url, title, desc):
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">'''
 
 
-HEAD_META = f"<title>{TITLE}</title>\n" + og_meta("https://easyestate.solutions/", "EASY ESTATE - личный рабочий инструмент риелтора", DESC)
+HEAD_META = f"<title>{TITLE}</title>\n" + og_meta("https://easyestate.solutions/", "Личный рабочий инструмент риелтора", DESC)
 
 full = f'''<!DOCTYPE html>
 <html lang="ru">
@@ -500,7 +500,7 @@ def doc_block(slug, lang):
 
 for slug in PAGES:
     head_extra = ('<meta name="robots" content="noindex">\n<link rel="icon" href="/assets/logo-mark.svg" type="image/svg+xml">' if slug == "404"
-                  else og_meta(f"https://easyestate.solutions/{slug}.html", f"EASY ESTATE - {title_of(slug, 'ru')}", DESC))
+                  else og_meta(f"https://easyestate.solutions/{slug}.html", title_of(slug, 'ru'), DESC))
     page_title = f'EASY ESTATE - {PAGES[slug]["title"]["ru"]} / {PAGES[slug]["title"]["en"]}'
     titles = " ".join(f'data-title-{L}="EASY ESTATE - {e(title_of(slug, L))}"' for L in LANGS)
     body = f'''<div class="page" {titles}>
