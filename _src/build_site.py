@@ -159,7 +159,7 @@ T["uz"] = uz.T_UZ
 T["uz-cyrl"] = uz.t_cyrl(uz.T_UZ)
 LANGS = ["ru", "uz", "uz-cyrl", "en"]
 LANG_ATTR = {"uz": "uz-Latn", "uz-cyrl": "uz-Cyrl"}
-SCREENS_RU = {"ru", "uz", "uz-cyrl"}  # узбекских снимков экранов пока нет — русский интерфейс
+SCREEN_PREFIX = {"en": "en_", "uz": "uz_", "uz-cyrl": "uz_"}  # снимки по языку; uz-cyrl — латиница (приложение на латинице, 259)
 
 e = html.escape
 
@@ -172,8 +172,9 @@ def phone(src, alt, cls="", eager=False):
 
 def block(lang):
     t = T[lang]
-    hero_imgs = ("05_home", "07_property_card") if lang in SCREENS_RU else ("en_05_home", "en_07_property_card")
-    c_imgs = ("04_client_card", "06_properties") if lang in SCREENS_RU else ("en_04_client_card", "en_06_properties")
+    pre = SCREEN_PREFIX.get(lang, "")
+    hero_imgs = (pre + "05_home", pre + "07_property_card")
+    c_imgs = (pre + "04_client_card", pre + "06_properties")
     p_items = "".join(f'<li><b>{e(a)}</b><span>{e(b)}</span></li>' for a, b in t["p_items"])
     steps = []
     for i, s in enumerate(t["steps"], 1):
