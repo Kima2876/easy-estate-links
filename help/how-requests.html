@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang-fixed="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Запросы клиентов «Покупка» и «Съём» - EASY ESTATE</title>
+<meta name="description" content="Запрос — это то, что ищет клиент: купить или снять, где, какой тип недвижимости, бюджет, сколько спален, когда въезд. Запрос записывается не одним значением, а диапазонами и несколькими…">
+<meta property="og:site_name" content="EASY ESTATE">
+<meta property="og:title" content="Запросы клиентов «Покупка» и «Съём» - EASY ESTATE">
+<meta property="og:description" content="Запрос — это то, что ищет клиент: купить или снять, где, какой тип недвижимости, бюджет, сколько спален, когда въезд. Запрос записывается не одним значением, а диапазонами и несколькими…">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://easyestate.solutions/help/how-requests.html">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="https://easyestate.solutions/assets/og-easyestate-2.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://easyestate.solutions/help/how-requests.html">
+<link rel="icon" href="/assets/logo-mark.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Запросы клиентов «Покупка» и «Съём»", "inLanguage": "ru", "url": "https://easyestate.solutions/help/how-requests.html", "publisher": {"@type": "Organization", "name": "EASY ESTATE", "url": "https://easyestate.solutions/"}}</script>
+<style>/* Layout: светлые секции по сетке 1120px, настоящие экраны в рамке телефона; одна зелёная полоса бренда («база принадлежит риелтору»). Цвета — дизайн-система приложения (brand900 #4A7640), шрифт Arial по брендбуку. */
+:root {
+  --bg: #FFFFFF;
+  --surface: #F5F8F3;
+  --fg: #1B2419;
+  --muted: #5E6B5A;
+  --line: #E2E8DF;
+  --brand: #4A7640;
+  --brand-text: #4A7640;
+  --brand-soft: #E9F8DA;
+  --brand-mid: #D0F0AF;
+  --on-brand: #FFFFFF;
+  --band-bg: #4A7640;
+  --band-fg: #FFFFFF;
+  --band-muted: #E9F8DA;
+  --band-line: rgba(233, 248, 218, 0.45);
+  --bezel: #1B2419;
+  --shadow: rgba(27, 36, 25, 0.16);
+  --font: Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif;
+  --wrap: 1120px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10160E; --surface: #182016; --fg: #E6EEE2; --muted: #A2B09D; --line: #2A3627;
+    --brand: #4A7640; --brand-text: #9BCB8E; --brand-soft: #1F2C1C; --brand-mid: #2E4428; --on-brand: #FFFFFF;
+    --band-bg: #2C4826; --band-fg: #F1F8EC; --band-muted: #CFE5C5; --band-line: rgba(207, 229, 197, 0.35);
+    --bezel: #2E3A2B; --shadow: rgba(0, 0, 0, 0.45);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10160E; --surface: #182016; --fg: #E6EEE2; --muted: #A2B09D; --line: #2A3627;
+  --brand: #4A7640; --brand-text: #9BCB8E; --brand-soft: #1F2C1C; --brand-mid: #2E4428; --on-brand: #FFFFFF;
+  --band-bg: #2C4826; --band-fg: #F1F8EC; --band-muted: #CFE5C5; --band-line: rgba(207, 229, 197, 0.35);
+  --bezel: #2E3A2B; --shadow: rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 17px; line-height: 1.55; -webkit-text-size-adjust: 100%; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--brand-text); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--brand-text); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 700; }
+p, ul, ol, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+
+.page { min-width: 0; }
+.site-head, .lang-block > section, .foot { padding-inline: max(16px, calc((100% - var(--wrap)) / 2)); }
+
+/* Шапка */
+.site-head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; background: var(--bg); border-bottom: 1px solid var(--line); }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--fg); text-decoration: none; font-weight: 700; letter-spacing: 1.5px; font-size: 15px; }
+.brand svg { width: 34px; height: 34px; flex: none; }
+.site-head { flex-wrap: nowrap; }
+.mainnavs { flex: 1; min-width: 0; display: flex; justify-content: center; }
+.mainnav { display: flex; gap: 4px; }
+.mainnav a { padding: 8px 12px; border-radius: 10px; color: var(--muted); text-decoration: none; font-size: 15px; white-space: nowrap; }
+.mainnav a:hover { color: var(--brand-text); background: var(--surface); }
+.mainnav a[aria-current] { color: var(--brand-text); background: var(--brand-soft); font-weight: 700; }
+.head-end { display: flex; align-items: center; gap: 8px; flex: none; }
+.menu-btn { display: none; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; place-items: center; padding: 0; }
+.menu-btn svg path { stroke: currentColor; stroke-width: 2; stroke-linecap: round; fill: none; }
+.menu-btn .i-close, .menu-btn[aria-expanded="true"] .i-open { display: none; }
+.menu-btn[aria-expanded="true"] .i-close { display: inline; }
+.menu-panel { position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: 0 18px 30px -18px var(--shadow); padding: 8px max(16px, calc((100% - var(--wrap)) / 2)) 16px; }
+.menu-panel[hidden] { display: none; }
+.menu-list { display: flex; flex-direction: column; }
+.menu-list a { padding: 14px 4px; border-bottom: 1px solid var(--line); color: var(--fg); text-decoration: none; font-size: 17px; }
+.menu-list a:last-child { border-bottom: none; }
+.menu-list a[aria-current] { color: var(--brand-text); font-weight: 700; }
+.menu-list .menu-home { font-weight: 700; }
+.js .mainnav[data-hidden="true"], .js .menu-list[data-hidden="true"] { display: none; }
+@media (max-width: 1000px) {
+  .mainnavs { display: none; }
+  .menu-btn { display: grid; }
+}
+@media (max-width: 420px) {
+  .brand span { display: none; }
+}
+.langs { display: flex; gap: 4px; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.langs a { padding: 4px 11px; border-radius: 999px; text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 700; }
+.langs a[aria-current="true"] { background: var(--brand); color: var(--on-brand); }
+.scriptbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px; padding-block: 8px; padding-inline: max(16px, calc((100% - var(--wrap)) / 2)); background: var(--surface); border-bottom: 1px solid var(--line); font-size: 14px; }
+.scriptbar[hidden] { display: none; }
+.scriptbar-label { color: var(--muted); }
+.scripts { display: flex; gap: 4px; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--bg); }
+.scripts a { padding: 3px 12px; border-radius: 999px; text-decoration: none; color: var(--muted); font-weight: 700; }
+.scripts a[aria-current="true"] { background: var(--brand); color: var(--on-brand); }
+
+.lang-block > section { padding-block: 72px; scroll-margin-top: 88px; }
+.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--brand-text); margin-bottom: 12px; }
+h2 { font-size: clamp(28px, 4vw, 42px); line-height: 1.12; max-width: 22ch; }
+h3 { font-size: 20px; line-height: 1.25; }
+
+/* Кнопки */
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 22px; border-radius: 12px; border: 1px solid var(--brand); background: var(--brand); color: var(--on-brand); font: inherit; font-weight: 700; font-size: 16px; text-decoration: none; cursor: pointer; }
+.btn:hover { filter: brightness(1.08); }
+.btn--ghost { background: transparent; color: var(--brand-text); border-color: var(--line); }
+.btn--ghost:hover { border-color: var(--brand-text); filter: none; }
+
+/* Первый экран */
+.hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 48px; align-items: center; padding-block: 56px 64px !important; }
+.hero-text { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.status { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; font-size: 14px; font-weight: 700; color: var(--brand-text); background: var(--brand-soft); border-radius: 999px; padding: 6px 14px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand-text); }
+h1 { font-size: clamp(36px, 5.6vw, 64px); line-height: 1.04; letter-spacing: -0.5px; max-width: 15ch; }
+.lead { font-size: 19px; color: var(--muted); max-width: 34em; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-shots { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; min-width: 0; }
+.hero-shots .back { grid-column: 1 / 8; grid-row: 1; margin-top: 56px; }
+.hero-shots .front { grid-column: 6 / 13; grid-row: 1; }
+.shots-note { grid-column: 1 / 13; grid-row: 2; margin-top: 18px; font-size: 13px; color: var(--muted); text-align: center; }
+
+/* Телефон */
+.phone { border: 8px solid var(--bezel); border-radius: 34px; overflow: hidden; background: var(--bg); box-shadow: 0 22px 44px -18px var(--shadow); max-width: 100%; }
+.phone img { width: 100%; aspect-ratio: 600 / 1304; object-fit: cover; }
+
+/* Проблема */
+.problem { background: var(--surface); }
+.problem h2 { margin-bottom: 40px; }
+.problem-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: center; }
+.big-num { font-size: clamp(64px, 11vw, 132px); font-weight: 700; line-height: 0.95; color: var(--brand-text); letter-spacing: -2px; font-variant-numeric: tabular-nums; }
+.big-txt { font-size: 21px; line-height: 1.35; margin-top: 14px; max-width: 22em; }
+.src { font-size: 13px; color: var(--muted); margin-top: 12px; }
+.rows li { display: flex; flex-direction: column; gap: 2px; padding-block: 16px; border-bottom: 1px solid var(--line); min-width: 0; }
+.rows li:last-child { border-bottom: none; }
+.rows b { font-size: 19px; }
+.rows span { color: var(--muted); }
+
+/* Как работает */
+.how h2 { margin-bottom: 44px; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; counter-reset: none; }
+.step { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.step-text { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 14px; row-gap: 6px; }
+.num { grid-row: 1 / 3; width: 44px; height: 44px; border-radius: 50%; background: var(--brand); color: var(--on-brand); display: grid; place-items: center; font-weight: 700; font-size: 19px; }
+.step-text p { color: var(--muted); }
+.step-shot { position: relative; max-width: 290px; width: 100%; }
+.lockpill { position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%); white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; background: var(--brand-mid); color: var(--fg); font-weight: 700; font-size: 14px; padding: 8px 16px; border-radius: 999px; box-shadow: 0 6px 16px -8px var(--shadow); }
+
+/* Клиенту */
+.client { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; background: var(--surface); }
+.client-text { min-width: 0; }
+.client h2 { margin-bottom: 20px; }
+.soon { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 18px; color: var(--muted); font-size: 15px; }
+.chip { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--brand-text); border: 1px solid var(--brand-text); border-radius: 999px; padding: 3px 10px; }
+.client-shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; min-width: 0; }
+.tagged { display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 0; }
+.tagged:nth-child(2) { margin-top: 48px; }
+.tag { font-size: 14px; font-weight: 700; color: var(--on-brand); background: var(--brand); border-radius: 999px; padding: 6px 18px; }
+
+/* Полоса бренда */
+.band { background: var(--band-bg); color: var(--band-fg); }
+.band .eyebrow { color: var(--band-muted); }
+.band h2 { margin-bottom: 40px; }
+.pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--band-line); }
+.pillars li { padding: 26px 28px 8px 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.pillars li + li { padding-left: 28px; border-left: 1px solid var(--band-line); }
+.pillars p { color: var(--band-muted); }
+
+/* Цены */
+.price h2 { margin-bottom: 12px; }
+.note { color: var(--muted); max-width: 40em; margin-bottom: 36px; }
+.price-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.price-card { border: 1px solid var(--line); border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.price-card--main { border-color: var(--brand); box-shadow: inset 0 0 0 1px var(--brand); background: var(--brand-soft); }
+.price-card h3 { font-size: 17px; color: var(--muted); font-weight: 700; }
+.amount { font-size: 56px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; display: flex; align-items: flex-start; gap: 4px; }
+.cur { font-size: 26px; margin-top: 6px; }
+.per { font-size: 15px; font-weight: 400; color: var(--muted); align-self: flex-end; margin-left: 6px; margin-bottom: 6px; }
+.price-card p:last-child { color: var(--muted); }
+.small { font-size: 14px; color: var(--muted); margin-top: 20px; }
+
+/* Контакты */
+.contact { display: flex; flex-direction: column; gap: 14px; border-top: 1px solid var(--line); }
+.contact > p { color: var(--muted); max-width: 40em; }
+.mail { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 8px; }
+.mail-addr { font-size: clamp(20px, 3vw, 28px); font-weight: 700; text-decoration: none; color: var(--fg); user-select: all; overflow-wrap: anywhere; }
+.copy-status { font-size: 14px; color: var(--brand-text); }
+
+/* Подвал */
+.foot { padding-block: 32px 48px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--muted); }
+.foot-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.foot .small { margin-top: 0; }
+
+/* Узкие экраны */
+@media (max-width: 860px) {
+  .hero, .problem-grid, .client { grid-template-columns: minmax(0, 1fr); }
+  .hero { gap: 40px; }
+  .hero-shots { max-width: 420px; width: 100%; justify-self: center; }
+  .steps { grid-template-columns: minmax(0, 1fr); gap: 56px; }
+  .step { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 200px); align-items: start; gap: 20px; }
+  .step-text { grid-template-columns: 44px minmax(0, 1fr); }
+  .pillars { grid-template-columns: minmax(0, 1fr); }
+  .pillars li, .pillars li + li { padding: 22px 0; border-left: none; }
+  .pillars li + li { border-top: 1px solid var(--band-line); }
+  .price-grid { grid-template-columns: minmax(0, 1fr); }
+  .client-shots { max-width: 460px; }
+  .lang-block > section { padding-block: 56px; }
+}
+@media (max-width: 520px) {
+  .step { grid-template-columns: minmax(0, 1fr); }
+  .step-shot { max-width: 240px; justify-self: center; margin-inline: auto; }
+  .phone { border-width: 6px; border-radius: 26px; }
+  .tagged:nth-child(2) { margin-top: 32px; }
+}
+
+/* Язык: без скрипта видны обе версии */
+.js .lang-block[data-hidden="true"] { display: none; }
+
+/* Раздел, к которому перешли из меню, на мгновение подсвечивается (отзыв 13.10) */
+@keyframes sec-flash { 0%, 30% { box-shadow: inset 0 0 0 100vmax rgba(119, 183, 95, 0.16); } 100% { box-shadow: inset 0 0 0 100vmax rgba(119, 183, 95, 0); } }
+.lang-block > section.flash { animation: sec-flash 1.6s ease-out; }
+@media (prefers-reduced-motion: reduce) { .lang-block > section.flash { animation: none; } }
+
+.site-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.help-nav { display: flex; gap: 20px; font-size: 15px; }
+.help-nav a { color: var(--fg); text-decoration: none; }
+.help { padding-inline: max(16px, calc((100% - 760px) / 2)); padding-block: 40px 64px; display: flex; flex-direction: column; gap: 16px; }
+.help h1 { font-size: clamp(28px, 4.6vw, 40px); line-height: 1.15; max-width: none; }
+.help h2 { font-size: 22px; margin-top: 16px; max-width: none; }
+.help h3 { font-size: 18px; margin-top: 8px; }
+.help p, .help li { max-width: 42em; line-height: 1.6; }
+.help ol, .help ul { padding-left: 22px; display: flex; flex-direction: column; gap: 6px; }
+.help ol { list-style: decimal; }
+.help ul { list-style: disc; }
+.help .crumbs { font-size: 14px; color: var(--muted); }
+.help .crumbs a { color: var(--muted); }
+.help-list { list-style: none !important; padding-left: 0 !important; gap: 14px !important; }
+.help-list a { font-weight: 600; font-size: 17px; }
+.help-list p { color: var(--muted); margin-top: 2px; font-size: 15px; }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <a class="brand" href="/ru/" aria-label="EASY ESTATE"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 491 492" aria-hidden="true" focusable="false">
+  
+  
+  <path fill="#4A7640" d="M1 162L248 2L248 83L61 205L61 365L246 241L248 241L248 329L3 491L1 491Z M94 229L248 126L248 208L131 287L94 311Z"/>
+  <path fill="#77B75F" d="M247 1L366 85L368 85L368 58L427 58L428 127L490 168L490 250L248 83Z M244 3L245 3L245 4L244 4Z M241 5L242 5L242 6L241 6Z M238 7L239 7L239 8L238 8Z M235 9L236 9L236 10L235 10Z M221 18L222 18L222 19L221 19Z M218 20L219 20L219 21L218 21Z M215 22L216 22L216 23L215 23Z M212 24L213 24L213 25L212 25Z M198 33L199 33L199 34L198 34Z M195 35L196 35L196 36L195 36Z M192 37L193 37L193 38L192 38Z M189 39L190 39L190 40L189 40Z M186 41L187 41L187 42L186 42Z M175 48L176 48L176 49L175 49Z M172 50L173 50L173 51L172 51Z M169 52L170 52L170 53L169 53Z M166 54L167 54L167 55L166 55Z M163 56L164 56L164 57L163 57Z M152 63L153 63L153 64L152 64Z M149 65L150 65L150 66L149 66Z M146 67L147 67L147 68L146 68Z M143 69L144 69L144 70L143 70Z M140 71L141 71L141 72L140 72Z M126 80L127 80L127 81L126 81Z M123 82L124 82L124 83L123 83Z M120 84L121 84L121 85L120 85Z M245 84L246 84L246 85L245 85Z M117 86L118 86L118 87L117 87Z M242 86L243 86L243 87L242 87Z M231 93L232 93L232 94L231 94Z M103 95L104 95L104 96L103 96Z M228 95L229 95L229 96L228 96Z M100 97L101 97L101 98L100 98Z M225 97L226 97L226 98L225 98Z M97 99L98 99L98 100L97 100Z M222 99L223 99L223 100L222 100Z M94 101L95 101L95 102L94 102Z M219 101L220 101L220 102L219 102Z M208 108L209 108L209 109L208 109Z M80 110L81 110L81 111L80 111Z M205 110L206 110L206 111L205 111Z M77 112L78 112L78 113L77 113Z M202 112L203 112L203 113L202 113Z M74 114L75 114L75 115L74 115Z M199 114L200 114L200 115L199 115Z M71 116L72 116L72 117L71 117Z M196 116L197 116L197 117L196 117Z M68 118L69 118L69 119L68 119Z M57 125L58 125L58 126L57 126Z M182 125L183 125L183 126L182 126Z M248 126L490 289L490 371L248 208Z M54 127L55 127L55 128L54 128Z M179 127L180 127L180 128L179 128Z M51 129L52 129L52 130L51 130Z M176 129L177 129L177 130L176 130Z M48 131L49 131L49 132L48 132Z M173 131L174 131L174 132L173 132Z M45 133L46 133L46 134L45 134Z M34 140L35 140L35 141L34 141Z M159 140L160 140L160 141L159 141Z M31 142L32 142L32 143L31 143Z M156 142L157 142L157 143L156 143Z M223 142L224 142L224 143L223 143Z M28 144L29 144L29 145L28 145Z M153 144L154 144L154 145L153 145Z M220 144L221 144L221 145L220 145Z M25 146L26 146L26 147L25 147Z M150 146L151 146L151 147L150 147Z M217 146L218 146L218 147L217 147Z M22 148L23 148L23 149L22 149Z M147 148L148 148L148 149L147 149Z M214 148L215 148L215 149L214 149Z M211 150L212 150L212 151L211 151Z M208 152L209 152L209 153L208 153Z M205 154L206 154L206 155L205 155Z M136 155L137 155L137 156L136 156Z M202 156L203 156L203 157L202 157Z M8 157L9 157L9 158L8 158Z M133 157L134 157L134 158L133 158Z M199 158L200 158L200 159L199 159Z M5 159L6 159L6 160L5 160Z M130 159L131 159L131 160L130 160Z M196 160L197 160L197 161L196 161Z M2 161L3 161L3 162L2 162Z M127 161L128 161L128 162L127 162Z M193 162L194 162L194 163L193 163Z M124 163L125 163L125 164L124 164Z M190 164L191 164L191 165L190 165Z M187 166L188 166L188 167L187 167Z M184 168L185 168L185 169L184 169Z M113 170L114 170L114 171L113 171Z M110 172L111 172L111 173L110 173Z M107 174L108 174L108 175L107 175Z M104 176L105 176L105 177L104 177Z M101 178L102 178L102 179L101 179Z M87 187L88 187L88 188L87 188Z M84 189L85 189L85 190L84 190Z M81 191L82 191L82 192L81 192Z M78 193L79 193L79 194L78 194Z M141 197L142 197L142 198L141 198Z M138 199L139 199L139 200L138 200Z M135 201L136 201L136 202L135 202Z M64 202L65 202L65 203L64 203Z M132 203L133 203L133 204L132 204Z M129 205L130 205L130 206L129 206Z M126 207L127 207L127 208L126 208Z M123 209L124 209L124 210L123 210Z M245 209L246 209L246 210L245 210Z M120 211L121 211L121 212L120 212Z M242 211L243 211L243 212L242 212Z M117 213L118 213L118 214L117 214Z M239 213L240 213L240 214L239 214Z M114 215L115 215L115 216L114 216Z M236 215L237 215L237 216L236 216Z M111 217L112 217L112 218L111 218Z M233 217L234 217L234 218L233 218Z M108 219L109 219L109 220L108 220Z M230 219L231 219L231 220L230 220Z M105 221L106 221L106 222L105 222Z M227 221L228 221L228 222L227 222Z M102 223L103 223L103 224L102 224Z M224 223L225 223L225 224L224 224Z M221 225L222 225L222 226L221 226Z M218 227L219 227L219 228L218 228Z M215 229L216 229L216 230L215 230Z M212 231L213 231L213 232L212 232Z M1 491L248 329L247 240L490 408L490 491Z M244 242L245 242L245 243L244 243Z M241 244L242 244L242 245L241 245Z M238 246L239 246L239 247L238 247Z M235 248L236 248L236 249L235 249Z M232 250L233 250L233 251L232 251Z M229 252L230 252L230 253L229 253Z M226 254L227 254L227 255L226 255Z M172 258L173 258L173 259L172 259Z M169 260L170 260L170 261L169 261Z M166 262L167 262L167 263L166 263Z M163 264L164 264L164 265L163 265Z M160 266L161 266L161 267L160 267Z M157 268L158 268L158 269L157 269Z M154 270L155 270L155 271L154 271Z M151 272L152 272L152 273L151 273Z M148 274L149 274L149 275L148 275Z M145 276L146 276L146 277L145 277Z M192 277L193 277L193 278L192 278Z M142 278L143 278L143 279L142 279Z M189 279L190 279L190 280L189 280Z M139 280L140 280L140 281L139 281Z M186 281L187 281L187 282L186 282Z M136 282L137 282L137 283L136 283Z M183 283L184 283L184 284L183 284Z M133 284L134 284L134 285L133 285Z M180 285L181 285L181 286L180 286Z M177 287L178 287L178 288L177 288Z M174 289L175 289L175 290L174 290Z M171 291L172 291L172 292L171 292Z M168 293L169 293L169 294L168 294Z M165 295L166 295L166 296L165 296Z M162 297L163 297L163 298L162 298Z M159 299L160 299L160 300L159 300Z M156 301L157 301L157 302L156 302Z M153 303L154 303L154 304L153 304Z M150 305L151 305L151 306L150 306Z M147 307L148 307L148 308L147 308Z M113 330L114 330L114 331L113 331Z M110 332L111 332L111 333L110 333Z M107 334L108 334L108 335L107 335Z M104 336L105 336L105 337L104 337Z M101 338L102 338L102 339L101 339Z M98 340L99 340L99 341L98 341Z M95 342L96 342L96 343L95 343Z M92 344L93 344L93 345L92 345Z M89 346L90 346L90 347L89 347Z M86 348L87 348L87 349L86 349Z M83 350L84 350L84 351L83 351Z M80 352L81 352L81 353L80 353Z M77 354L78 354L78 355L77 355Z M74 356L75 356L75 357L74 357Z M71 358L72 358L72 359L71 359Z M68 360L69 360L69 361L68 361Z"/>
+</svg><span>EASY ESTATE</span></a>
+  <nav class="help-nav" aria-label="Справка"><a href="/help/">Справка</a><a href="/support.html?lang=ru">Поддержка</a></nav>
+</header>
+<main class="help"><p class="crumbs"><a href="/ru/">EASY ESTATE</a> / <a href="/help/">Справка</a> / <span>Запросы клиентов «Покупка» и «Съём»</span></p><h1>Запросы клиентов «Покупка» и «Съём»</h1><h2>Что это и зачем</h2>
+<p>Запрос — это то, что ищет клиент: купить или снять, где, какой тип недвижимости, бюджет, сколько спален, когда въезд. Запрос записывается не одним значением, а диапазонами и несколькими вариантами: например, «квартира или таунхаус, от 2 до 3 спален, бюджет до 120 000». Так требования клиента не теряются в переписке и блокноте, а лежат в его карточке. У одного клиента может быть несколько запросов.</p>
+<h2>Как создать запрос</h2>
+<ol>
+<li>Нажмите «+» и выберите «Запрос клиента». Или откройте карточку клиента и нажмите «Новый запрос» — клиент подставится сам.</li>
+<li>Если начали с «+», выберите клиента из списка или создайте нового.</li>
+<li>Выберите «Вручную» или «Голосом».</li>
+<li>Заполните поля и нажмите «Сохранить».</li>
+</ol>
+<h2>Что заполняется</h2>
+<p>Обязательные поля:</p>
+<ol>
+<li>«Клиент».</li>
+<li>«Покупка или съём».</li>
+<li>«Типы недвижимости» — можно выбрать несколько.</li>
+<li>«Страна» и «Город».</li>
+<li>«Бюджет до».</li>
+<li>Для съёма — ещё «Вид аренды» и «Бюджет за: сутки, неделю или месяц».</li>
+<li>«Статус запроса»: «Активен», «Приостановлен», «Закрыт (сделка)», «Архив».</li>
+</ol>
+<p>Необязательные поля, по желанию клиента:</p>
+<ol>
+<li>«Бюджет от» и «Можно дороже на, %».</li>
+<li>«Подтипы», «Регионы», «Комплексы».</li>
+<li>Площадь: «Общая площадь от / до», «Площадь ±, %», «Площадь участка от / до».</li>
+<li>«Спален от / до», «Комнат от / до», «Санузлов от».</li>
+<li>«Этаж от / до», «Этажность здания до».</li>
+<li>«Состояние», «Меблировка», «Вид из окон», «Дополнительные помещения», «Удобства в доме».</li>
+<li>«Парковочных мест не менее», «Год постройки не ранее».</li>
+<li>«До метро / транспорта не более, м», «До моря / центра не более, м».</li>
+<li>Для покупки: «Способ оплаты», «Тип владения», «С действующим арендатором».</li>
+<li>Для съёма: «Дата заезда», «Срок аренды от / до, мес.», «Число проживающих», «С домашними животными», «Курящий»; для посуточного съёма — «Ночей» и даты.</li>
+<li>«Пожелания клиента» — свободным текстом.</li>
+</ol>
+<h2>Голосом</h2>
+<p>Скажите, например: «Клиент хочет снять двухкомнатную квартиру в Ташкенте, до 800 долларов в месяц, въезд с первого числа». ИИ разложит сказанное по полям запроса, вы проверите и подтвердите. Критерии поиска голосом заполняются по умолчанию. Имя, контакты и заметки о клиенте ИИ не получает и не заполняет. Подробнее — в статье «Голосовое заполнение».</p>
+<h2>Где видно запросы</h2>
+<ol>
+<li>В карточке клиента — раздел «Запросы». Если запросов нет, видно «Запросов нет».</li>
+<li>Клиент с запросом «Покупка» считается покупателем, с запросом «Съём» — арендатором. По этим ролям список клиентов фильтруется: «Покупатели».</li>
+</ol>
+<h2>Полезно знать</h2>
+<ol>
+<li>Выбора районов в запросе пока нет — ни вручную, ни голосом. Если клиент назвал районы, ИИ предупредит об этом; важные районы запишите в «Пожелания клиента».</li>
+<li>Если запрос сохранён без обязательных полей, он получит пометку «Заполнен не полностью».</li>
+<li>Бюджет записывается в валюте вашей базы.</li>
+<li>Запросы сохраняются и без интернета и отправляются на сервер, когда появится связь.</li>
+<li>Запрос видите только вы, клиент его не видит.</li>
+<li>Приложение само подбирает объекты под запрос: у запроса видно «Подходящие объекты» из вашей базы, оттуда можно «Отправить подборку клиенту». У объекта видно «Подходящие запросы».</li>
+</ol></main>
+<footer class="foot"><p>ООО «EASY ESTATE», ИНН 307553192, Ташкент, Узбекистан</p>
+<p class="foot-links"><a href="/ru/">Главная</a><a href="/privacy.html?lang=ru">Политика конфиденциальности</a><a href="/terms.html?lang=ru">Условия использования</a></p></footer>
+</body>
+</html>

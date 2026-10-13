@@ -164,6 +164,7 @@ SCREEN_PREFIX = {"en": "en_", "uz": "uz_", "uz-cyrl": "uz_"}  # снимки п�
 e = html.escape
 
 
+HELP_LABEL = {"ru": "Справка", "uz": "Yordam (rus tilida)", "uz-cyrl": "Ёрдам (рус тилида)", "en": "Help (in Russian)"}
 BASE = ""  # "" — корень (относительные пути, работают и в превью); "/" — страницы языков в подпапках
 
 
@@ -198,6 +199,7 @@ def block(lang):
             f'<p class="amount"><span class="cur">$</span>{amount}{per_html}</p><p>{e(note)}</p></li>')
     nav = "".join(f'<a href="#{a}-{lang}">{e(b)}</a>' for a, b in t["nav"])
     flinks = "".join(f'<a href="{h}">{e(x)}</a>' for h, x in t["f_links"])
+    flinks += f'<a href="/help/">{e(HELP_LABEL[lang])}</a>'
     return f'''
 <div class="lang-block" data-lang="{lang}" lang="{LANG_ATTR.get(lang, lang)}">
   <section class="hero">
@@ -597,6 +599,9 @@ for slug in PAGES:
 
 (ROOT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://easyestate.solutions/sitemap.xml\n", encoding="utf-8")
 urls = ["support.html", "delete-account.html", "privacy.html", "terms.html"]
+# Справка (/help/, собирается _src/build_help.py из базы знаний приложения) — все её страницы в карту сайта.
+if (ROOT / "help" / "index.html").exists():
+    urls += ["help/"] + sorted(f"help/{p.name}" for p in (ROOT / "help").glob("*.html") if p.name != "index.html")
 alts = "".join(f'    <xhtml:link rel="alternate" hreflang="{HREFLANG[L]}" href="{SITE}{L}/"/>\n' for L in LANGS) \
     + f'    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE}"/>\n'
 home_urls = [SITE] + [f"{SITE}{L}/" for L in LANGS]
