@@ -91,7 +91,7 @@ ul, ol { padding: 0; list-style: none; }
 .scripts a { padding: 3px 12px; border-radius: 999px; text-decoration: none; color: var(--muted); font-weight: 700; }
 .scripts a[aria-current="true"] { background: var(--brand); color: var(--on-brand); }
 
-.lang-block > section { padding-block: 72px; scroll-margin-top: calc(var(--head-h, 72px) + 8px); }
+.lang-block > section { padding-block: 72px; scroll-margin-top: 88px; }
 .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--brand-text); margin-bottom: 12px; }
 h2 { font-size: clamp(28px, 4vw, 42px); line-height: 1.12; max-width: 22ch; }
 h3 { font-size: 20px; line-height: 1.25; }

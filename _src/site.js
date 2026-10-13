@@ -15,46 +15,15 @@
     if (!markSection || Date.now() < lockUntil) return;
     if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) markSection(lastSection);
   }, { passive: true });
-  // Высота шапки — в переменную CSS: по ней считаются отступ раздела и прокрутка (на телефоне и мониторе шапка разной высоты).
-  function headH() {
-    var h = document.querySelector('.site-head');
-    return h ? Math.round(h.getBoundingClientRect().height) : 0;
-  }
-  function setHeadVar() { document.documentElement.style.setProperty('--head-h', headH() + 'px'); }
-  setHeadVar();
-  window.addEventListener('resize', setHeadVar);
-  // Переход к разделу по ссылке на странице (меню, «Как это работает»): прокрутка считается сама —
-  // верх раздела всегда встаёт ровно под шапку, на любом экране (отзыв 13.10: «то в начало, то в середину»).
+  // Клик по пункту меню раздела: сразу подсветить пункт и мягко выделить сам раздел.
   document.addEventListener('click', function (ev) {
-    var a = ev.target.closest && ev.target.closest('a[href^="#"]');
-    if (!a) return;
-    var id = a.getAttribute('href').slice(1);
-    var sec = id && document.getElementById(id);
-    if (!sec || !sec.closest('.lang-block')) return;
-    ev.preventDefault();
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    lockUntil = Date.now() + 1500;
-    if (markSection && a.hasAttribute('data-sec')) markSection(id);
-    function target() { return Math.max(0, Math.round(sec.getBoundingClientRect().top + window.scrollY - headH() - 8)); }
-    window.scrollTo({ top: target(), behavior: reduce ? 'auto' : 'smooth' });
-    // Картинки выше раздела догружаются во время прокрутки и сдвигают его: когда прокрутка остановилась,
-    // доводим раздел до места (до трёх раз).
-    var last = -1, still = 0, fixes = 0, started = Date.now();
-    (function settle() {
-      var y = window.scrollY;
-      still = Math.abs(y - last) < 1 ? still + 1 : 0;
-      last = y;
-      if (still >= 8) {
-        var want = target();
-        var maxY = document.documentElement.scrollHeight - window.innerHeight;
-        if (Math.abs(want - y) > 2 && Math.abs(Math.min(want, maxY) - y) > 2 && fixes < 3) {
-          fixes += 1; still = 0;
-          window.scrollTo({ top: want, behavior: 'auto' });
-        } else { return; }
-      }
-      if (Date.now() - started < 4000) requestAnimationFrame(settle);
-    })();
-    try { history.replaceState(null, '', window.location.pathname + window.location.search + '#' + id); } catch (e) { /* превью */ }
+    var a = ev.target.closest && ev.target.closest('[data-sec]');
+    if (!a || !markSection) return;
+    var id = a.getAttribute('data-sec');
+    lockUntil = Date.now() + 1200;
+    markSection(id);
+    var sec = document.getElementById(id);
+    if (!sec) return;
     sec.classList.remove('flash');
     void sec.offsetWidth; // перезапуск анимации при повторном клике
     sec.classList.add('flash');
