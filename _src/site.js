@@ -7,6 +7,28 @@
   root.classList.add('js');
   // Подсветка раздела, который сейчас на экране (только на главной).
   var observer = null;
+  var markSection = null;  // подсветить пункт меню раздела (ставит watchSections)
+  var lastSection = '';    // последний раздел (контакты) — до середины экрана он не доходит
+  var lockUntil = 0;
+  // Последний раздел короче экрана: внизу страницы подсвечиваем его (отзыв 13.10: «Контакты» — а горит «Цены»).
+  window.addEventListener('scroll', function () {
+    if (!markSection || Date.now() < lockUntil) return;
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) markSection(lastSection);
+  }, { passive: true });
+  // Клик по пункту меню раздела: сразу подсветить пункт и мягко выделить сам раздел.
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('[data-sec]');
+    if (!a || !markSection) return;
+    var id = a.getAttribute('data-sec');
+    lockUntil = Date.now() + 1200;
+    markSection(id);
+    var sec = document.getElementById(id);
+    if (!sec) return;
+    sec.classList.remove('flash');
+    void sec.offsetWidth; // перезапуск анимации при повторном клике
+    sec.classList.add('flash');
+    setTimeout(function () { sec.classList.remove('flash'); }, 1800);
+  });
   function watchSections(lang) {
     if (!('IntersectionObserver' in window)) return;
     if (observer) observer.disconnect();
@@ -19,10 +41,13 @@
       }
     }
     observer = new IntersectionObserver(function (entries) {
+      if (Date.now() < lockUntil) return; // переход по ссылке меню: подсветку уже поставил клик
       for (var i = 0; i < entries.length; i++) {
         if (entries[i].isIntersecting) mark(entries[i].target.id);
       }
     }, { rootMargin: '-45% 0px -50% 0px' });
+    markSection = mark;
+    lastSection = ids[ids.length - 1] + '-' + lang;
     var found = false;
     for (var k = 0; k < ids.length; k++) {
       var el = document.getElementById(ids[k] + '-' + lang);

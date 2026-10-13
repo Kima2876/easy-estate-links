@@ -210,3 +210,8 @@ h1 { font-size: clamp(36px, 5.6vw, 64px); line-height: 1.04; letter-spacing: -0.
 
 /* Язык: без скрипта видны обе версии */
 .js .lang-block[data-hidden="true"] { display: none; }
+
+/* Раздел, к которому перешли из меню, на мгновение подсвечивается (отзыв 13.10) */
+@keyframes sec-flash { 0%, 30% { box-shadow: inset 0 0 0 100vmax rgba(119, 183, 95, 0.16); } 100% { box-shadow: inset 0 0 0 100vmax rgba(119, 183, 95, 0); } }
+.lang-block > section.flash { animation: sec-flash 1.6s ease-out; }
+@media (prefers-reduced-motion: reduce) { .lang-block > section.flash { animation: none; } }
