@@ -5,3 +5,17 @@
 
 /assets/*
   Cache-Control: public, max-age=604800
+
+/.well-known/apple-app-site-association
+  Content-Type: application/json
+  Cache-Control: public, max-age=3600
+
+/selection.html
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: no-referrer
+  Cache-Control: public, max-age=300
+
+/selection
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: no-referrer
+  Cache-Control: public, max-age=300

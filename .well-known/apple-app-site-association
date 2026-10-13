@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["X8WNXUVR4N.com.easyestate"],
+        "appID": "X8WNXUVR4N.com.easyestate",
+        "components": [
+          { "/": "/selection.html", "comment": "Selection links: https://easyestate.solutions/selection.html#t=..." }
+        ],
+        "paths": ["/selection.html"]
+      }
+    ]
+  }
+}

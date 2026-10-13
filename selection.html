@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#4A7640">
+<title>EASY ESTATE</title>
+<link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #F5F8F3; --fg: #1B2419; --muted: #5E6B5A; --line: #E2E8DF;
+  --brand: #4A7640; --brand-text: #4A7640; --brand-soft: #E9F8DA; --on-brand: #FFFFFF;
+  --warn: #8A5A00; --shadow: rgba(27, 36, 25, 0.14);
+  --font: Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif;
+  --wrap: 960px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10160E; --surface: #182016; --fg: #E6EEE2; --muted: #A2B09D; --line: #2A3627;
+    --brand-text: #9BCB8E; --brand-soft: #1F2C1C; --warn: #E3B562; --shadow: rgba(0, 0, 0, 0.45);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10160E; --surface: #182016; --fg: #E6EEE2; --muted: #A2B09D; --line: #2A3627;
+  --brand-text: #9BCB8E; --brand-soft: #1F2C1C; --warn: #E3B562; --shadow: rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 16px; line-height: 1.5; padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+img { display: block; max-width: 100%; }
+a { color: var(--brand-text); }
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid var(--brand-text); outline-offset: 2px; border-radius: 6px; }
+
+.head { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px max(16px, calc((100% - var(--wrap)) / 2)); padding-top: calc(10px + env(safe-area-inset-top, 0px)); background: var(--bg); border-bottom: 1px solid var(--line); }
+.brand { display: inline-flex; align-items: center; gap: 8px; color: var(--fg); text-decoration: none; font-weight: 700; letter-spacing: 1.5px; font-size: 14px; }
+.brand svg { width: 28px; height: 28px; flex: none; }
+.langs { display: flex; gap: 2px; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.langs a { padding: 3px 9px; border-radius: 999px; text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 700; }
+.langs a[aria-current="true"] { background: var(--brand); color: var(--on-brand); }
+
+main { max-width: var(--wrap); margin: 0 auto; padding: 20px 16px 8px; }
+.state { padding: 48px 0; text-align: center; color: var(--muted); }
+.state b { display: block; color: var(--fg); font-size: 19px; margin-bottom: 8px; }
+.state .btn { margin-top: 20px; }
+
+.realtor { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 16px; background: var(--surface); }
+.avatar { flex: none; width: 52px; height: 52px; border-radius: 50%; background: var(--brand); color: var(--on-brand); display: grid; place-items: center; font-weight: 700; font-size: 20px; }
+.realtor small { display: block; color: var(--muted); font-size: 13px; }
+.realtor b { display: block; font-size: 18px; line-height: 1.25; overflow-wrap: anywhere; }
+.realtor span { display: block; color: var(--muted); font-size: 14px; }
+
+.title { margin: 22px 0 6px; font-size: 24px; line-height: 1.2; }
+.sub { color: var(--muted); font-size: 15px; }
+
+.criteria { margin-top: 16px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; display: grid; gap: 6px; }
+.criteria h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--brand-text); }
+.criteria p { font-size: 15px; }
+.controls { display: grid; gap: 14px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+.control label { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; font-weight: 700; }
+.control label output { color: var(--brand-text); }
+.control input[type="range"] { width: 100%; accent-color: var(--brand); margin: 8px 0 0; }
+.control small { display: block; color: var(--muted); font-size: 13px; }
+.control select { width: 100%; margin-top: 6px; min-height: 44px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); font: inherit; }
+.note-line { font-size: 13px; color: var(--muted); }
+.note-line.warn { color: var(--warn); }
+
+.section-title { margin: 26px 0 12px; font-size: 18px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--bg); color: inherit; text-decoration: none; min-width: 0; }
+a.card:hover { box-shadow: 0 10px 24px -14px var(--shadow); border-color: var(--brand-text); }
+.card .ph { position: relative; aspect-ratio: 4 / 3; background: var(--surface); }
+.card .ph img { width: 100%; height: 100%; object-fit: cover; }
+.ph-empty[hidden] { display: none; }
+.ph-empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); }
+.ph-empty svg { width: 48px; height: 48px; opacity: 0.5; }
+.badges { position: absolute; left: 10px; right: 10px; bottom: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.badge { padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 700; background: rgba(16, 22, 14, 0.72); color: #FFFFFF; }
+.badge.rec { background: var(--brand); }
+.card .body { padding: 12px 14px 14px; display: grid; gap: 4px; }
+.price { font-size: 19px; font-weight: 700; line-height: 1.25; overflow-wrap: anywhere; }
+.price small { font-size: 14px; font-weight: 400; color: var(--muted); }
+.card .name { font-size: 15px; overflow-wrap: anywhere; }
+.card .meta { font-size: 14px; color: var(--muted); }
+.card .dev { font-size: 13px; color: var(--muted); }
+.card.gone { padding: 18px 14px; color: var(--muted); font-size: 15px; background: var(--surface); }
+.more { display: flex; justify-content: center; margin-top: 18px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 22px; border-radius: 12px; border: 1px solid var(--brand); background: var(--brand); color: var(--on-brand); font: inherit; font-weight: 700; font-size: 16px; text-decoration: none; cursor: pointer; }
+.btn:hover { filter: brightness(1.08); }
+.btn--ghost { background: transparent; color: var(--brand-text); border-color: var(--line); }
+.btn[disabled] { opacity: 0.6; cursor: default; }
+
+.back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--brand-text); text-decoration: none; font-weight: 700; }
+.gallery { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; border-radius: 16px; margin-top: 4px; -webkit-overflow-scrolling: touch; }
+.gallery > * { flex: 0 0 100%; scroll-snap-align: start; aspect-ratio: 4 / 3; background: var(--surface); border-radius: 16px; overflow: hidden; }
+.gallery img, .gallery video { width: 100%; height: 100%; object-fit: cover; background: #000; }
+.gallery-count { margin-top: 6px; font-size: 13px; color: var(--muted); text-align: right; }
+@media (min-width: 720px) { .gallery > * { flex-basis: calc(50% - 4px); } }
+
+.prices { margin-top: 16px; display: grid; gap: 6px; }
+.prices .deal { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--brand-text); font-weight: 700; }
+.obj-title { margin-top: 10px; font-size: 22px; line-height: 1.25; }
+.obj-meta { color: var(--muted); margin-top: 4px; }
+.pill { display: inline-block; margin-top: 10px; padding: 4px 12px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-text); font-weight: 700; font-size: 13px; }
+.note { margin-top: 18px; padding: 14px 16px; border-left: 4px solid var(--brand); background: var(--surface); border-radius: 0 12px 12px 0; }
+.note b { display: block; font-size: 13px; color: var(--brand-text); margin-bottom: 4px; }
+.text-block { margin-top: 10px; white-space: pre-line; overflow-wrap: anywhere; }
+.group { margin-top: 26px; }
+.group h2 { font-size: 18px; margin-bottom: 8px; }
+.rows { border-top: 1px solid var(--line); }
+.rows li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.rows li span { color: var(--muted); }
+.rows li b { font-weight: 400; overflow-wrap: anywhere; }
+.map { margin-top: 10px; height: 260px; border-radius: 16px; overflow: hidden; background: var(--surface); }
+.small { margin-top: 8px; font-size: 13px; color: var(--muted); }
+
+.cta { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; padding: 12px max(16px, calc((100% - var(--wrap)) / 2)); padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--bg); border-top: 1px solid var(--line); box-shadow: 0 -10px 24px -18px var(--shadow); }
+.cta .btn { width: 100%; }
+.cta[hidden] { display: none; }
+.act { margin-top: 24px; padding: 16px; border-radius: 14px; background: var(--brand-soft); font-size: 15px; display: grid; gap: 8px; }
+.act small { color: var(--muted); font-size: 13px; }
+.foot { max-width: var(--wrap); margin: 24px auto 0; padding: 16px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); }
+.foot a { color: inherit; }
+.skeleton { height: 180px; border-radius: 16px; background: linear-gradient(90deg, var(--surface), var(--line), var(--surface)); background-size: 200% 100%; animation: sh 1.4s ease-in-out infinite; }
+@keyframes sh { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+@media (max-width: 380px) { .brand span { display: none; } }
+</style>
+</head>
+<body>
+<header class="head">
+  <a class="brand" href="/" aria-label="EASY ESTATE"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 491 492" aria-hidden="true" focusable="false">
+  
+  
+  <path fill="#4A7640" d="M1 162L248 2L248 83L61 205L61 365L246 241L248 241L248 329L3 491L1 491Z M94 229L248 126L248 208L131 287L94 311Z"/>
+  <path fill="#77B75F" d="M247 1L366 85L368 85L368 58L427 58L428 127L490 168L490 250L248 83Z M244 3L245 3L245 4L244 4Z M241 5L242 5L242 6L241 6Z M238 7L239 7L239 8L238 8Z M235 9L236 9L236 10L235 10Z M221 18L222 18L222 19L221 19Z M218 20L219 20L219 21L218 21Z M215 22L216 22L216 23L215 23Z M212 24L213 24L213 25L212 25Z M198 33L199 33L199 34L198 34Z M195 35L196 35L196 36L195 36Z M192 37L193 37L193 38L192 38Z M189 39L190 39L190 40L189 40Z M186 41L187 41L187 42L186 42Z M175 48L176 48L176 49L175 49Z M172 50L173 50L173 51L172 51Z M169 52L170 52L170 53L169 53Z M166 54L167 54L167 55L166 55Z M163 56L164 56L164 57L163 57Z M152 63L153 63L153 64L152 64Z M149 65L150 65L150 66L149 66Z M146 67L147 67L147 68L146 68Z M143 69L144 69L144 70L143 70Z M140 71L141 71L141 72L140 72Z M126 80L127 80L127 81L126 81Z M123 82L124 82L124 83L123 83Z M120 84L121 84L121 85L120 85Z M245 84L246 84L246 85L245 85Z M117 86L118 86L118 87L117 87Z M242 86L243 86L243 87L242 87Z M231 93L232 93L232 94L231 94Z M103 95L104 95L104 96L103 96Z M228 95L229 95L229 96L228 96Z M100 97L101 97L101 98L100 98Z M225 97L226 97L226 98L225 98Z M97 99L98 99L98 100L97 100Z M222 99L223 99L223 100L222 100Z M94 101L95 101L95 102L94 102Z M219 101L220 101L220 102L219 102Z M208 108L209 108L209 109L208 109Z M80 110L81 110L81 111L80 111Z M205 110L206 110L206 111L205 111Z M77 112L78 112L78 113L77 113Z M202 112L203 112L203 113L202 113Z M74 114L75 114L75 115L74 115Z M199 114L200 114L200 115L199 115Z M71 116L72 116L72 117L71 117Z M196 116L197 116L197 117L196 117Z M68 118L69 118L69 119L68 119Z M57 125L58 125L58 126L57 126Z M182 125L183 125L183 126L182 126Z M248 126L490 289L490 371L248 208Z M54 127L55 127L55 128L54 128Z M179 127L180 127L180 128L179 128Z M51 129L52 129L52 130L51 130Z M176 129L177 129L177 130L176 130Z M48 131L49 131L49 132L48 132Z M173 131L174 131L174 132L173 132Z M45 133L46 133L46 134L45 134Z M34 140L35 140L35 141L34 141Z M159 140L160 140L160 141L159 141Z M31 142L32 142L32 143L31 143Z M156 142L157 142L157 143L156 143Z M223 142L224 142L224 143L223 143Z M28 144L29 144L29 145L28 145Z M153 144L154 144L154 145L153 145Z M220 144L221 144L221 145L220 145Z M25 146L26 146L26 147L25 147Z M150 146L151 146L151 147L150 147Z M217 146L218 146L218 147L217 147Z M22 148L23 148L23 149L22 149Z M147 148L148 148L148 149L147 149Z M214 148L215 148L215 149L214 149Z M211 150L212 150L212 151L211 151Z M208 152L209 152L209 153L208 153Z M205 154L206 154L206 155L205 155Z M136 155L137 155L137 156L136 156Z M202 156L203 156L203 157L202 157Z M8 157L9 157L9 158L8 158Z M133 157L134 157L134 158L133 158Z M199 158L200 158L200 159L199 159Z M5 159L6 159L6 160L5 160Z M130 159L131 159L131 160L130 160Z M196 160L197 160L197 161L196 161Z M2 161L3 161L3 162L2 162Z M127 161L128 161L128 162L127 162Z M193 162L194 162L194 163L193 163Z M124 163L125 163L125 164L124 164Z M190 164L191 164L191 165L190 165Z M187 166L188 166L188 167L187 167Z M184 168L185 168L185 169L184 169Z M113 170L114 170L114 171L113 171Z M110 172L111 172L111 173L110 173Z M107 174L108 174L108 175L107 175Z M104 176L105 176L105 177L104 177Z M101 178L102 178L102 179L101 179Z M87 187L88 187L88 188L87 188Z M84 189L85 189L85 190L84 190Z M81 191L82 191L82 192L81 192Z M78 193L79 193L79 194L78 194Z M141 197L142 197L142 198L141 198Z M138 199L139 199L139 200L138 200Z M135 201L136 201L136 202L135 202Z M64 202L65 202L65 203L64 203Z M132 203L133 203L133 204L132 204Z M129 205L130 205L130 206L129 206Z M126 207L127 207L127 208L126 208Z M123 209L124 209L124 210L123 210Z M245 209L246 209L246 210L245 210Z M120 211L121 211L121 212L120 212Z M242 211L243 211L243 212L242 212Z M117 213L118 213L118 214L117 214Z M239 213L240 213L240 214L239 214Z M114 215L115 215L115 216L114 216Z M236 215L237 215L237 216L236 216Z M111 217L112 217L112 218L111 218Z M233 217L234 217L234 218L233 218Z M108 219L109 219L109 220L108 220Z M230 219L231 219L231 220L230 220Z M105 221L106 221L106 222L105 222Z M227 221L228 221L228 222L227 222Z M102 223L103 223L103 224L102 224Z M224 223L225 223L225 224L224 224Z M221 225L222 225L222 226L221 226Z M218 227L219 227L219 228L218 228Z M215 229L216 229L216 230L215 230Z M212 231L213 231L213 232L212 232Z M1 491L248 329L247 240L490 408L490 491Z M244 242L245 242L245 243L244 243Z M241 244L242 244L242 245L241 245Z M238 246L239 246L239 247L238 247Z M235 248L236 248L236 249L235 249Z M232 250L233 250L233 251L232 251Z M229 252L230 252L230 253L229 253Z M226 254L227 254L227 255L226 255Z M172 258L173 258L173 259L172 259Z M169 260L170 260L170 261L169 261Z M166 262L167 262L167 263L166 263Z M163 264L164 264L164 265L163 265Z M160 266L161 266L161 267L160 267Z M157 268L158 268L158 269L157 269Z M154 270L155 270L155 271L154 271Z M151 272L152 272L152 273L151 273Z M148 274L149 274L149 275L148 275Z M145 276L146 276L146 277L145 277Z M192 277L193 277L193 278L192 278Z M142 278L143 278L143 279L142 279Z M189 279L190 279L190 280L189 280Z M139 280L140 280L140 281L139 281Z M186 281L187 281L187 282L186 282Z M136 282L137 282L137 283L136 283Z M183 283L184 283L184 284L183 284Z M133 284L134 284L134 285L133 285Z M180 285L181 285L181 286L180 286Z M177 287L178 287L178 288L177 288Z M174 289L175 289L175 290L174 290Z M171 291L172 291L172 292L171 292Z M168 293L169 293L169 294L168 294Z M165 295L166 295L166 296L165 296Z M162 297L163 297L163 298L162 298Z M159 299L160 299L160 300L159 300Z M156 301L157 301L157 302L156 302Z M153 303L154 303L154 304L153 304Z M150 305L151 305L151 306L150 306Z M147 307L148 307L148 308L147 308Z M113 330L114 330L114 331L113 331Z M110 332L111 332L111 333L110 333Z M107 334L108 334L108 335L107 335Z M104 336L105 336L105 337L104 337Z M101 338L102 338L102 339L101 339Z M98 340L99 340L99 341L98 341Z M95 342L96 342L96 343L95 343Z M92 344L93 344L93 345L92 345Z M89 346L90 346L90 347L89 347Z M86 348L87 348L87 349L86 349Z M83 350L84 350L84 351L83 351Z M80 352L81 352L81 353L80 353Z M77 354L78 354L78 355L77 355Z M74 356L75 356L75 357L74 357Z M71 358L72 358L72 359L71 359Z M68 360L69 360L69 361L68 361Z"/>
+</svg><span>EASY ESTATE</span></a>
+  <nav class="langs" id="langs" aria-label="Language"></nav>
+</header>
+<main id="app" aria-live="polite"><p class="state" id="state">Loading…</p></main>
+<div class="cta" id="cta" hidden>
+  <a class="btn" id="open" href="#"></a>
+</div>
+<footer class="foot" id="foot"></footer>
+<script>
+window.EE_SEL = {"fn":"https://yyaehdfbdhmqnamyhgtl.supabase.co/functions/v1/selection-view","reg":6,"ui":{"ru":{"title":"Подборка от риелтора","loading":"Загружаем подборку","realtor":"Ваш риелтор","exp":{"one":"опыт {n} год","few":"опыт {n} года","many":"опыт {n} лет","other":"опыт {n} года"},"picked":"Подобрано для вас","objects":{"one":"{n} объект","few":"{n} объекта","many":"{n} объектов","other":"{n} объекта"},"now":"обновлено сейчас","rec":"Рекомендации риелтора","rec_badge":"Рекомендую","all":"Все объекты подборки","criteria":"Что ищем","price":"Цена","area":"Площадь","land":"Участок","from":"от {v}","to":"до {v}","tol":"Расширить поиск","tol_hint":"Допуск по цене и площади, до {n} %","currency":"Валюта цен","no_rate":"Курса для этой валюты нет, цены показаны в валюте риелтора","rate_date":"Пересчёт по курсу на {d}","more":"Показать ещё","gone":"Объект больше недоступен","dev_up":"на {n} % выше запроса","dev_down":"на {n} % ниже запроса","photos":"{n} фото","video":"Видео","open":"Открыть в приложении","act":"Оценить объекты, сохранить подборку, задать вопрос риелтору и записаться на просмотр можно в приложении EASY ESTATE.","install":"Если приложения ещё нет, попросите у риелтора ссылку на установку, затем снова откройте эту ссылку.","expired":"Срок подборки истёк. Попросите риелтора прислать новую.","bad":"Ссылка на подборку неполная. Попросите риелтора прислать её ещё раз.","busy":"Слишком много запросов. Повторим через {n} с.","error":"Не удалось загрузить. Проверьте интернет и попробуйте ещё раз.","retry":"Повторить","back":"Вся подборка","empty":"Сейчас в подборке нет объектов.","empty_tol":"Попробуйте расширить поиск.","note":"Заметка риелтора","place":"Расположение","approx":"Показана примерная область, около 300 м. Точный адрес риелтор сообщит в приложении.","checked":"Актуальность проверена {d}","updated":"Обновлено {d}","studio":"Студия","bedrooms":{"one":"{n} спальня","few":"{n} спальни","many":"{n} спален","other":"{n} спальни"},"rooms":{"one":"{n} комната","few":"{n} комнаты","many":"{n} комнат","other":"{n} комнаты"},"sum_bed":"{n} сп.","sum_floor":"{n} эт.","yes":"Да","no":"Нет","no_parking":"Нет парковки","city_region":"{n} (город)","m2":"кв. м","sqft":"кв. футы","sotka":{"one":"{n} сотка","few":"{n} сотки","many":"{n} соток","fraction":"{n} сотки"},"per":{"day":"/ сутки","week":"/ нед.","month":"/ мес."},"groups":{"main":"Основное","features":"Характеристики","building":"Дом и инфраструктура","sale_terms":"Условия продажи","rent_terms":"Условия аренды","reveal":"Адрес и документы","description":"Описание"},"sale":"Продажа","rent":"Аренда","foot":"EASY ESTATE. Личный помощник риелтора","map_attr":"Карта"},"en":{"title":"Selection from your agent","loading":"Loading the selection","realtor":"Your agent","exp":{"one":"{n} year of experience","other":"{n} years of experience"},"picked":"Picked for you","objects":{"one":"{n} property","other":"{n} properties"},"now":"updated just now","rec":"Agent's recommendations","rec_badge":"Recommended","all":"All properties in the selection","criteria":"What we are looking for","price":"Price","area":"Area","land":"Land","from":"from {v}","to":"up to {v}","tol":"Widen the search","tol_hint":"Tolerance for price and area, up to {n} %","currency":"Currency","no_rate":"There is no rate for this currency, prices are in the agent's currency","rate_date":"Converted at the rate of {d}","more":"Show more","gone":"This property is no longer available","dev_up":"{n} % above the request","dev_down":"{n} % below the request","photos":"{n} photos","video":"Video","open":"Open in the app","act":"Rate the properties, save the selection, ask your agent and book a viewing in the EASY ESTATE app.","install":"If the app is not installed yet, ask your agent for the installation link, then open this link again.","expired":"This selection has expired. Ask your agent to send a new one.","bad":"The selection link is incomplete. Ask your agent to send it again.","busy":"Too many requests. Retrying in {n} s.","error":"Could not load. Check your connection and try again.","retry":"Try again","back":"Whole selection","empty":"There are no properties in the selection right now.","empty_tol":"Try widening the search.","note":"Note from your agent","place":"Location","approx":"An approximate area of about 300 m is shown. Your agent will share the exact address in the app.","checked":"Availability checked {d}","updated":"Updated {d}","studio":"Studio","bedrooms":{"one":"{n} bedroom","other":"{n} bedrooms"},"rooms":{"one":"{n} room","other":"{n} rooms"},"sum_bed":"{n} bd","sum_floor":"fl. {n}","yes":"Yes","no":"No","no_parking":"No parking","city_region":"{n} (city)","m2":"sq m","sqft":"sq ft","sotka":{"one":"{n} sotka","few":"{n} sotkas","many":"{n} sotkas","fraction":"{n} sotkas"},"per":{"day":"/ day","week":"/ week","month":"/ month"},"groups":{"main":"Main","features":"Features","building":"Building and surroundings","sale_terms":"Sale terms","rent_terms":"Rent terms","reveal":"Address and documents","description":"Description"},"sale":"Sale","rent":"Rent","foot":"EASY ESTATE. Personal assistant for real estate agents","map_attr":"Map"},"uz":{"title":"Rieltordan saralangan obyektlar","loading":"Saralangan obyektlar yuklanmoqda","realtor":"Rieltoringiz","exp":{"other":"{n} yillik tajriba"},"picked":"Siz uchun tanlandi","objects":{"other":"{n} ta obyekt"},"now":"hozir yangilandi","rec":"Rieltor tavsiyalari","rec_badge":"Tavsiya qilaman","all":"Barcha obyektlar","criteria":"Nima qidiryapmiz","price":"Narx","area":"Maydon","land":"Yer maydoni","from":"{v} dan","to":"{v} gacha","tol":"Qidiruvni kengaytirish","tol_hint":"Narx va maydon boʻyicha ogʻish, {n} % gacha","currency":"Narx valyutasi","no_rate":"Bu valyuta uchun kurs yoʻq, narxlar rieltor valyutasida","rate_date":"{d} kursi boʻyicha hisoblangan","more":"Yana koʻrsatish","gone":"Obyekt endi mavjud emas","dev_up":"soʻrovdan {n} % yuqori","dev_down":"soʻrovdan {n} % past","photos":"{n} ta foto","video":"Video","open":"Ilovada ochish","act":"Obyektlarni baholash, tanlovni saqlash, rieltorga savol berish va koʻrishga yozilish EASY ESTATE ilovasida.","install":"Agar ilova hali oʻrnatilmagan boʻlsa, rieltordan oʻrnatish havolasini soʻrang va bu havolani qayta oching.","expired":"Tanlov muddati tugagan. Rieltordan yangisini yuborishni soʻrang.","bad":"Tanlov havolasi toʻliq emas. Rieltordan uni qayta yuborishni soʻrang.","busy":"Soʻrovlar juda koʻp. {n} soniyadan keyin qayta urinamiz.","error":"Yuklab boʻlmadi. Internetni tekshirib, qayta urinib koʻring.","retry":"Qayta urinish","back":"Butun tanlov","empty":"Hozir tanlovda obyekt yoʻq.","empty_tol":"Qidiruvni kengaytirib koʻring.","note":"Rieltor izohi","place":"Joylashuv","approx":"Taxminiy hudud koʻrsatilgan, taxminan 300 m. Aniq manzilni rieltor ilovada aytadi.","checked":"Dolzarbligi tekshirilgan: {d}","updated":"Yangilangan: {d}","studio":"Studiya","bedrooms":{"other":"{n} yotoqxona"},"rooms":{"other":"{n} xona"},"sum_bed":"{n} yot.","sum_floor":"{n} qavat","yes":"Ha","no":"Yoʻq","no_parking":"Avtoturargoh yoʻq","city_region":"{n} (shahar)","m2":"kv. m","sqft":"kv. fut","sotka":{"other":"{n} sotix","fraction":"{n} sotix"},"per":{"day":"/ kun","week":"/ hafta","month":"/ oy"},"groups":{"main":"Asosiy","features":"Xususiyatlar","building":"Uy va infratuzilma","sale_terms":"Sotuv shartlari","rent_terms":"Ijara shartlari","reveal":"Manzil va hujjatlar","description":"Tavsif"},"sale":"Sotuv","rent":"Ijara","foot":"EASY ESTATE. Rieltorning shaxsiy yordamchisi","map_attr":"Xarita"},"id":{"title":"Pilihan properti dari agen Anda","loading":"Memuat pilihan","realtor":"Agen Anda","exp":{"other":"pengalaman {n} tahun"},"picked":"Dipilih untuk Anda","objects":{"other":"{n} properti"},"now":"baru diperbarui","rec":"Rekomendasi agen","rec_badge":"Direkomendasikan","all":"Semua properti pilihan","criteria":"Yang dicari","price":"Harga","area":"Luas","land":"Luas tanah","from":"dari {v}","to":"hingga {v}","tol":"Perluas pencarian","tol_hint":"Toleransi harga dan luas, hingga {n} %","currency":"Mata uang","no_rate":"Kurs untuk mata uang ini tidak tersedia, harga dalam mata uang agen","rate_date":"Dikonversi dengan kurs {d}","more":"Tampilkan lagi","gone":"Properti ini sudah tidak tersedia","dev_up":"{n} % di atas permintaan","dev_down":"{n} % di bawah permintaan","photos":"{n} foto","video":"Video","open":"Buka di aplikasi","act":"Beri nilai properti, simpan pilihan, tanya agen, dan jadwalkan kunjungan di aplikasi EASY ESTATE.","install":"Jika aplikasi belum terpasang, minta tautan instalasi kepada agen Anda, lalu buka tautan ini lagi.","expired":"Masa berlaku pilihan ini sudah habis. Minta agen Anda mengirim yang baru.","bad":"Tautan pilihan tidak lengkap. Minta agen Anda mengirimkannya lagi.","busy":"Terlalu banyak permintaan. Mencoba lagi dalam {n} detik.","error":"Gagal memuat. Periksa koneksi Anda dan coba lagi.","retry":"Coba lagi","back":"Semua pilihan","empty":"Saat ini belum ada properti dalam pilihan.","empty_tol":"Coba perluas pencarian.","note":"Catatan dari agen","place":"Lokasi","approx":"Ditampilkan perkiraan area sekitar 300 m. Agen akan memberikan alamat tepat di aplikasi.","checked":"Ketersediaan diperiksa {d}","updated":"Diperbarui {d}","studio":"Studio","bedrooms":{"other":"{n} kamar tidur"},"rooms":{"other":"{n} ruangan"},"sum_bed":"{n} KT","sum_floor":"lt. {n}","yes":"Ya","no":"Tidak","no_parking":"Tanpa parkir","city_region":"{n} (kota)","m2":"m²","sqft":"sq ft","sotka":{"other":"{n} sotka","fraction":"{n} sotka"},"per":{"day":"/ hari","week":"/ minggu","month":"/ bulan"},"groups":{"main":"Utama","features":"Fitur","building":"Bangunan dan lingkungan","sale_terms":"Ketentuan jual","rent_terms":"Ketentuan sewa","reveal":"Alamat dan dokumen","description":"Deskripsi"},"sale":"Dijual","rent":"Disewakan","foot":"EASY ESTATE. Asisten pribadi agen properti","map_attr":"Peta"}}};
+</script>
+<script>
+(function () {
+  'use strict';
+  // Страница подборки (search_selections_v1, раздел 7). Токен — только во фрагменте #t=
+  // (фрагмент не уходит на сервер сайта); функция selection-view получает его в теле запроса.
+  // Страница только показывает; любое действие — в приложении (easyestate://selection?t=...).
+  var CFG = window.EE_SEL;
+  var LANGS = ['ru', 'uz', 'en', 'id'];
+  var LOCALE = { ru: 'ru-RU', en: 'en-US', uz: 'uz-Latn-UZ', id: 'id-ID' };
+  var GEO_COL = { en: 0, ru: 1, uz: 2, id: 3 };
+  var CURRENCIES = ['USD', 'EUR', 'UZS', 'RUB', 'KZT', 'AED', 'IDR', 'THB', 'MYR', 'TRY', 'GBP', 'CNY'];
+  var SOTKA = ['UZ', 'KZ', 'KG', 'TJ', 'RU', 'BY'];
+  var CITY_REGIONS = [1484839, 292224, 1609348, 1642907, 1733046, 1996552]; // geo_directory.dart cityRegionIds
+  var BEDROOM_TYPES = ['apartment', 'house', 'villa', 'townhouse', 'hotel_room', 'shophouse'];
+  var STALE_MS = 50 * 60 * 1000; // ссылки на фото живут час
+  var TOKEN_RE = /^[A-Za-z0-9_-]{20,128}$/;
+  var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+  var app = document.getElementById('app');
+  var cta = document.getElementById('cta');
+  var openBtn = document.getElementById('open');
+  var reg = null;           // реестр и названия на языке страницы
+  var regLang = null;
+  var geoCache = {};
+  var listCache = null;     // { key, data, items, cursor, loadedAt, scroll }
+  var lastRender = 0;
+  var retryTimer = null;
+  var tolTimer = null;
+
+  // ---------- состояние из фрагмента ----------
+  function params() {
+    var p = new URLSearchParams((location.hash || '').replace(/^#/, ''));
+    var t = p.get('t') || '';
+    var lang = (p.get('lang') || '').toLowerCase().split('-')[0];
+    if (LANGS.indexOf(lang) < 0) lang = pickLang();
+    var pid = p.get('p') || '';
+    var cur = (p.get('cur') || '').toUpperCase();
+    var tol = parseInt(p.get('tol') || '', 10);
+    return {
+      t: t, lang: lang,
+      pid: UUID_RE.test(pid) ? pid : '',
+      cur: /^[A-Z]{3}$/.test(cur) ? cur : '',
+      tol: isFinite(tol) && tol >= 0 && tol <= 100 ? tol : 0
+    };
+  }
+  function pickLang() {
+    var list = navigator.languages || [navigator.language || ''];
+    for (var i = 0; i < list.length; i++) {
+      var c = String(list[i] || '').toLowerCase().split('-')[0];
+      if (c === 'in') c = 'id';
+      if (LANGS.indexOf(c) >= 0) return c;
+      if (['kk', 'ky', 'tg', 'be', 'uk'].indexOf(c) >= 0) return 'ru';
+    }
+    return 'en';
+  }
+  function hashOf(s) {
+    var p = new URLSearchParams();
+    p.set('t', s.t);
+    p.set('lang', s.lang);
+    if (s.pid) p.set('p', s.pid);
+    if (s.cur) p.set('cur', s.cur);
+    if (s.tol) p.set('tol', String(s.tol));
+    return '#' + p.toString();
+  }
+  function go(change) {
+    var s = params();
+    for (var k in change) s[k] = change[k];
+    location.hash = hashOf(s);
+  }
+
+  // ---------- текст ----------
+  function ui(lang) { return CFG.ui[lang] || CFG.ui.en; }
+  function fill(str, n) { return String(str).replace('{n}', n).replace('{v}', n).replace('{d}', n); }
+  function plural(lang, forms, n) {
+    var cat = 'other';
+    try { cat = new Intl.PluralRules(LOCALE[lang]).select(n); } catch (e) { /* старый браузер */ }
+    return fill(forms[cat] || forms.other || forms.many || forms.few, n);
+  }
+  function nf(lang, digits) {
+    try { return new Intl.NumberFormat(LOCALE[lang], { maximumFractionDigits: digits || 0 }); }
+    catch (e) { return new Intl.NumberFormat('en-US', { maximumFractionDigits: digits || 0 }); }
+  }
+  function num(lang, v, digits) { return nf(lang, digits).format(v).replace(/\s/g, ' '); }
+  function money(lang, v, cur) { return num(lang, Math.round(v)) + (cur ? ' ' + cur : ''); }
+  function dateText(lang, value) {
+    var d = new Date(value);
+    if (isNaN(d.getTime())) return String(value);
+    try { return new Intl.DateTimeFormat(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' }).format(d); }
+    catch (e) { return d.toISOString().slice(0, 10); }
+  }
+  function countryName(lang, code) {
+    try { return new Intl.DisplayNames([LOCALE[lang]], { type: 'region' }).of(code) || code; }
+    catch (e) { return code; }
+  }
+
+  // ---------- данные ----------
+  function getJSON(url) {
+    return fetch(url, { credentials: 'omit' }).then(function (r) {
+      if (!r.ok) throw new Error('http ' + r.status);
+      return r.json();
+    });
+  }
+  function loadReg(lang) {
+    if (reg && regLang === lang) return Promise.resolve(reg);
+    return getJSON('assets/sel/' + lang + '.json?v=' + CFG.reg).then(function (r) { reg = r; regLang = lang; return r; });
+  }
+  function loadGeo(cc) {
+    cc = String(cc || '').toLowerCase();
+    if (!/^[a-z]{2}$/.test(cc)) return Promise.resolve(null);
+    if (geoCache[cc] !== undefined) return Promise.resolve(geoCache[cc]);
+    return getJSON('assets/geo/' + cc + '.json?v=' + CFG.reg)
+      .then(function (g) { geoCache[cc] = g; return g; }, function () { geoCache[cc] = null; return null; });
+  }
+  function call(body) {
+    return fetch(CFG.fn, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+      credentials: 'omit',
+      cache: 'no-store',
+      referrerPolicy: 'no-referrer'
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (data) {
+        if (r.ok) return data;
+        var err = new Error(data && data.error || ('http_' + r.status));
+        err.code = data && data.error || 'http_' + r.status;
+        err.status = r.status;
+        err.retry = parseInt(r.headers.get('retry-after') || '', 10) || 10;
+        throw err;
+      });
+    });
+  }
+
+  // ---------- DOM ----------
+  function h(tag, attrs, kids) {
+    var el = document.createElement(tag);
+    if (attrs) {
+      for (var k in attrs) {
+        var v = attrs[k];
+        if (v === null || v === undefined || v === false) continue;
+        if (k === 'text') el.textContent = v;
+        else if (k === 'cls') el.className = v;
+        else if (k.slice(0, 2) === 'on') el.addEventListener(k.slice(2), v);
+        else el.setAttribute(k, v === true ? '' : v);
+      }
+    }
+    (kids || []).forEach(function (c) {
+      if (c === null || c === undefined || c === false) return;
+      el.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+    });
+    return el;
+  }
+  var HOUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 2 11h3v9h5v-6h4v6h5v-9h3z"/></svg>';
+  function setContent(nodes) {
+    app.textContent = '';
+    nodes.forEach(function (n) { if (n) app.appendChild(n); });
+  }
+  function stateBox(title, text, button) {
+    return h('div', { cls: 'state' }, [title ? h('b', { text: title }) : null, text ? h('p', { text: text }) : null, button || null]);
+  }
+
+  // ---------- значения полей (как value_text.dart приложения) ----------
+  function ctxOf(lang, card, geo, country) {
+    return {
+      lang: lang, t: ui(lang), geo: geo, country: country,
+      currency: card.currency || null,
+      units: card.area_units || ['m2'],
+      custom: card.custom_labels || {},
+      type: card.fields && card.fields.property_type || null
+    };
+  }
+  function dictLabel(c, dict, code) {
+    code = String(code);
+    if (code.indexOf('x:') === 0) {
+      var own = c.custom[code];
+      return own ? (own.label || own.original || null) : null;
+    }
+    var d = reg.dicts[dict];
+    if (!d) return null;
+    if (c.type && d._by_type && d._by_type[c.type] && d._by_type[c.type][code]) return d._by_type[c.type][code];
+    return typeof d[code] === 'string' ? d[code] : null;
+  }
+  function geoName(c, kind, code) {
+    var g = c.geo && c.geo[kind] && c.geo[kind][String(code)];
+    if (!g) return null;
+    var name = g[GEO_COL[c.lang]] || g[0];
+    // Регион, который сам город (Ташкент, Дубай и др.), — «<название> (город)», как в приложении.
+    return kind === 'r' && CITY_REGIONS.indexOf(Number(code)) >= 0 ? fill(c.t.city_region, name) : name;
+  }
+  function areaText(c, m2, key) {
+    if (typeof m2 !== 'number') return null;
+    var unit = (c.units || []).indexOf('sqft') >= 0 && (c.units || []).indexOf('m2') < 0 ? 'sqft' : 'm2';
+    var meters = unit === 'sqft'
+      ? num(c.lang, m2 * 10.7639104, 0) + ' ' + c.t.sqft
+      : num(c.lang, m2, 1) + ' ' + c.t.m2;
+    if (key === 'land_area' && SOTKA.indexOf(c.country) >= 0) {
+      var s = Math.round(m2) / 100;
+      var form = s % 1 !== 0 ? 'fraction' : (function (n) {
+        if (n % 10 === 1 && n % 100 !== 11) return 'one';
+        if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) return 'few';
+        return 'many';
+      })(Math.abs(s));
+      var tpl = c.t.sotka[form] || c.t.sotka.other || c.t.sotka.many;
+      return fill(tpl, num(c.lang, s, 2)) + ' (' + num(c.lang, m2, 1) + ' ' + c.t.m2 + ')';
+    }
+    return meters;
+  }
+  function bedroomsText(c, v) {
+    if (typeof v !== 'number' || v < 0) return null;
+    if (v === 0) return !c.type || BEDROOM_TYPES.indexOf(c.type) >= 0 ? c.t.studio : null;
+    return plural(c.lang, c.t.bedrooms, v);
+  }
+  function valueText(c, fullKey, value) {
+    if (value === null || value === undefined || value === '') return null;
+    var def = reg.types[fullKey];
+    if (!def) return null;
+    var type = def[0], dict = def[1], key = fullKey.split('.')[1];
+    switch (type) {
+      case 'text': case 'long_text': case 'system': case 'email': case 'time':
+        return String(value).trim() || null;
+      case 'int':
+        if (key === 'parking_spaces' && value === 0) return c.t.no_parking;
+        if (key === 'bedrooms') return bedroomsText(c, value);
+        if (key === 'rooms_total' && value > 0) return plural(c.lang, c.t.rooms, value);
+        return String(value); // как в приложении: без разрядов (год постройки, этаж)
+      case 'decimal':
+        return typeof value === 'number' ? num(c.lang, value, 2) : String(value);
+      case 'money':
+        return typeof value === 'number' ? money(c.lang, value, c.currency) : null;
+      case 'area':
+        return areaText(c, value, key);
+      case 'bool':
+        return value === true ? c.t.yes : c.t.no;
+      case 'date':
+        return dateText(c.lang, value);
+      case 'dict':
+        if (dict === 'country') return countryName(c.lang, String(value));
+        if (dict === 'city') return geoName(c, 'c', value);
+        if (dict === 'region') {
+          var r = geoName(c, 'r', value);
+          return r;
+        }
+        return dictLabel(c, dict, value);
+      case 'dict_multi':
+        var codes = Array.isArray(value) ? value : [value];
+        var names = codes.map(function (x) { return dictLabel(c, dict, x); }).filter(Boolean);
+        return names.length ? names.join(', ') : null;
+      case 'dict_or_text':
+        if (value && typeof value === 'object') return value.text ? String(value.text) : null;
+        return /^[0-9]+$/.test(String(value)) ? null : String(value);
+      case 'season_prices':
+        if (!Array.isArray(value) || !value.length) return null;
+        return value.filter(function (s) { return s && typeof s === 'object'; }).map(function (s) {
+          return s.from + '–' + s.to + ': ' + money(c.lang, Number(s.rate) || 0, c.currency);
+        }).join('; ');
+      default:
+        return null; // commission, geo, media, ref — на веб не показываются
+    }
+  }
+  function placeText(c, fields) {
+    var d = fields.district;
+    var district = d && typeof d === 'object' ? (d.text || '') : '';
+    var city = fields.city ? geoName(c, 'c', fields.city) : null;
+    return [district, city].filter(Boolean).join(', ');
+  }
+  function nameText(c, fields, revealed) {
+    var type = fields.property_type ? dictLabel(c, 'property_type', fields.property_type) : null;
+    var sub = fields.property_subtype ? dictLabel(c, 'property_subtype', fields.property_subtype) : null;
+    var complex = revealed && revealed.complex_name ? String(revealed.complex_name) : '';
+    var main = sub ? (type ? type + ', ' + sub.charAt(0).toLowerCase() + sub.slice(1) : sub) : (type || reg.entities.property);
+    return complex ? main + ' · ' + complex : main;
+  }
+  function summaryText(c, fields) {
+    var parts = [];
+    if (typeof fields.bedrooms === 'number') {
+      if (fields.bedrooms > 0) parts.push(fill(c.t.sum_bed, fields.bedrooms));
+      else { var s = bedroomsText(c, 0); if (s) parts.push(s); }
+    }
+    var area = typeof fields.total_area === 'number' ? areaText(c, fields.total_area, 'total_area')
+      : (typeof fields.land_area === 'number' ? areaText(c, fields.land_area, 'land_area') : null);
+    if (area) parts.push(area);
+    var f = fields.floor, tf = fields.total_floors, fl = null;
+    if (f > 0 && tf > 0) fl = f + '/' + tf; else if (f > 0) fl = String(f); else if (tf > 0) fl = String(tf);
+    if (fl) parts.push(fill(c.t.sum_floor, fl));
+    return parts.join(' · ');
+  }
+  function offerPrice(c, offer, display) {
+    var conv = typeof offer.price_display === 'number' && display && display.currency &&
+      display.currency !== c.currency;
+    var amount = conv ? offer.price_display : offer.price;
+    if (typeof amount !== 'number') return null;
+    var text = money(c.lang, amount, conv ? display.currency : c.currency);
+    var per = offer.kind === 'rent' && offer.rent_period ? c.t.per[offer.rent_period] : '';
+    return { text: text, per: per || '' };
+  }
+
+  // ---------- карточка в списке ----------
+  function cardNode(s, c, item, display, kind) {
+    if (!item.available) return h('div', { cls: 'card gone', text: c.t.gone });
+    var fields = item.fields || {};
+    var cc = ctxOf(s.lang, item, c.geo, c.country);
+    var media = item.main_media && item.main_media.url
+      ? h('img', { src: item.main_media.url, alt: '', loading: 'lazy', decoding: 'async', referrerpolicy: 'no-referrer' })
+      : null;
+    var empty = h('div', { cls: 'ph-empty', hidden: !!media });
+    empty.innerHTML = HOUSE;
+    if (media) media.addEventListener('error', function () { media.remove(); empty.hidden = false; });
+    var badges = h('div', { cls: 'badges' }, [
+      item.recommended && !item.recommendation_removed ? h('span', { cls: 'badge rec', text: cc.t.rec_badge }) : null,
+      item.photo_count > 1 ? h('span', { cls: 'badge', text: fill(cc.t.photos, item.photo_count) }) : null,
+      item.has_video ? h('span', { cls: 'badge', text: cc.t.video }) : null
+    ]);
+    var prices = (item.offers || []).map(function (o) { return offerPrice(cc, o, display); }).filter(Boolean);
+    var priceNode = prices.length ? h('p', { cls: 'price' }, [
+      prices[0].text, prices[0].per ? h('small', { text: ' ' + prices[0].per }) : null,
+      prices[1] ? h('small', { text: ' · ' + prices[1].text + (prices[1].per ? ' ' + prices[1].per : '') }) : null
+    ]) : null;
+    var place = placeText(cc, fields);
+    var meta = [summaryText(cc, fields), place].filter(Boolean).join(' · ');
+    var dev = null;
+    if (kind === 'matching' && typeof item.price_dev_pct === 'number' && Math.abs(item.price_dev_pct) >= 1) {
+      var p = Math.round(Math.abs(item.price_dev_pct));
+      dev = h('p', { cls: 'dev', text: fill(item.price_dev_pct > 0 ? cc.t.dev_up : cc.t.dev_down, p) });
+    }
+    var link = hashOf({ t: s.t, lang: s.lang, pid: item.id, cur: s.cur, tol: s.tol });
+    return h('a', { cls: 'card', href: link }, [
+      h('div', { cls: 'ph' }, [media, empty, badges]),
+      h('div', { cls: 'body' }, [
+        priceNode,
+        h('p', { cls: 'name', text: nameText(cc, fields, item.revealed) }),
+        meta ? h('p', { cls: 'meta', text: meta }) : null,
+        dev
+      ])
+    ]);
+  }
+
+  // ---------- шапка риелтора и критерии ----------
+  function realtorNode(lang, realtor) {
+    var t = ui(lang);
+    realtor = realtor || {};
+    var name = String(realtor.name || '').trim();
+    var bits = [];
+    var place = [realtor.city, realtor.country_code ? countryName(lang, realtor.country_code) : null]
+      .filter(function (x) { return x && String(x).trim(); }).join(', ');
+    if (place) bits.push(place);
+    if (typeof realtor.experience_years === 'number' && realtor.experience_years > 0) {
+      bits.push(plural(lang, t.exp, realtor.experience_years));
+    }
+    return h('section', { cls: 'realtor', 'aria-label': t.realtor }, [
+      h('div', { cls: 'avatar', 'aria-hidden': 'true', text: (name.charAt(0) || 'E').toUpperCase() }),
+      h('div', null, [h('small', { text: t.realtor }), h('b', { text: name || 'EASY ESTATE' }), bits.length ? h('span', { text: bits.join(' · ') }) : null])
+    ]);
+  }
+  function rangeText(c, r, fmt) {
+    if (!r) return null;
+    var has = function (x) { return typeof x === 'number'; };
+    if (has(r.from) && has(r.to)) return fmt(r.from) + '–' + fmt(r.to);
+    if (has(r.from)) return fill(c.t.from, fmt(r.from));
+    if (has(r.to)) return fill(c.t.to, fmt(r.to));
+    return null;
+  }
+  function areaRange(c, r, key) {
+    // «60–90 кв. м»: единица один раз; участок в сотках — каждое значение полностью.
+    if (key === 'land_area' && SOTKA.indexOf(c.country) >= 0) {
+      return rangeText(c, r, function (v) { return areaText(c, v, key); });
+    }
+    var sqft = (c.units || []).indexOf('sqft') >= 0 && (c.units || []).indexOf('m2') < 0;
+    var text = rangeText(c, r, function (v) { return sqft ? num(c.lang, v * 10.7639104, 0) : num(c.lang, v, 1); });
+    return text ? text + '\u00a0' + (sqft ? c.t.sqft : c.t.m2) : null;
+  }
+  function criteriaNode(s, c, data) {
+    var sum = data.summary;
+    var sel = data.selection;
+    var display = data.display || {};
+    var t = c.t;
+    var lines = [];
+    if (sum) {
+      var head = [];
+      if (sum.deal) head.push(sum.deal === 'sale' ? t.sale : t.rent);
+      var types = (sum.types || []).map(function (x) { return dictLabel(c, 'property_type', x); }).filter(Boolean);
+      if (types.length) head.push(types.join(', '));
+      var where = [];
+      (sum.districts || []).forEach(function (d) { if (d && !/^[0-9]+$/.test(String(d.text || d))) where.push(String(d.text || d)); });
+      if (sum.city) { var cn = geoName(c, 'c', Array.isArray(sum.city) ? sum.city[0] : sum.city); if (cn) where.push(cn); }
+      (sum.regions || []).forEach(function (r) { var rn = geoName(c, 'r', r); if (rn) where.push(rn); });
+      if (!where.length && sum.country) where.push(countryName(s.lang, String(sum.country)));
+      if (where.length) head.push(where.join(', '));
+      if (head.length) lines.push(h('p', { text: head.join(' · ') }));
+      if (sum.price) {
+        var conv = sum.price.display && display.currency && display.currency !== sum.price.currency;
+        var src = conv ? sum.price.display : sum.price;
+        var cur = conv ? display.currency : sum.price.currency;
+        var pt = rangeText(c, src, function (v) { return money(s.lang, v, null); });
+        if (pt) {
+          var tol = typeof sel.price_tolerance_pct === 'number' ? sel.price_tolerance_pct : sum.price.tolerance_pct;
+          lines.push(h('p', { text: t.price + ': ' + pt + ' ' + cur + (tol ? ' ± ' + tol + ' %' : '') }));
+        }
+      }
+      if (sum.area) {
+        var at = areaRange(c, sum.area, 'total_area');
+        var atol = typeof sel.area_tolerance_pct === 'number' ? sel.area_tolerance_pct : sum.area.tolerance_pct;
+        if (at) lines.push(h('p', { text: t.area + ': ' + at + (atol ? ' ± ' + atol + ' %' : '') }));
+      }
+      if (sum.land_area) {
+        var lt = areaRange(c, sum.land_area, 'land_area');
+        if (lt) lines.push(h('p', { text: t.land + ': ' + lt }));
+      }
+      var rooms = [];
+      if (sum.bedrooms) { var b = rangeText(c, sum.bedrooms, function (v) { return String(v); }); if (b) rooms.push(reg.names['property.bedrooms'] + ': ' + b); }
+      if (sum.rooms) { var r2 = rangeText(c, sum.rooms, function (v) { return String(v); }); if (r2) rooms.push(reg.names['property.rooms_total'] + ': ' + r2); }
+      if (rooms.length) lines.push(h('p', { text: rooms.join(' · ') }));
+    }
+    var controls = [];
+    if (sel.kind === 'matching' && typeof sel.tolerance_limit_pct === 'number' && sel.tolerance_limit_pct > 0) {
+      var out = h('output', { text: s.tol + ' %' });
+      var range = h('input', {
+        type: 'range', min: '0', max: String(sel.tolerance_limit_pct), step: '1', value: String(Math.min(s.tol, sel.tolerance_limit_pct)),
+        id: 'tol', 'aria-describedby': 'tol-hint',
+        oninput: function (e) { out.textContent = e.target.value + ' %'; },
+        onchange: function (e) {
+          var v = parseInt(e.target.value, 10) || 0;
+          clearTimeout(tolTimer);
+          tolTimer = setTimeout(function () { go({ tol: v, pid: '' }); }, 250);
+        }
+      });
+      controls.push(h('div', { cls: 'control' }, [
+        h('label', { for: 'tol' }, [t.tol, out]), range,
+        h('small', { id: 'tol-hint', text: fill(t.tol_hint, sel.tolerance_limit_pct) })
+      ]));
+    }
+    var base = sel.currency;
+    if (base) {
+      var shown = display.currency || base;
+      var list = [base].concat(CURRENCIES.filter(function (x) { return x !== base; }));
+      if (list.indexOf(shown) < 0) list.splice(1, 0, shown);
+      var select = h('select', {
+        id: 'cur',
+        onchange: function (e) { go({ cur: e.target.value === base ? '' : e.target.value, pid: '' }); }
+      }, list.map(function (code) { return h('option', { value: code, selected: code === shown, text: code }); }));
+      var note = null;
+      if (display.no_rate && s.cur && s.cur !== base) note = h('p', { cls: 'note-line warn', text: t.no_rate });
+      else if (display.rate_date && shown !== base) note = h('p', { cls: 'note-line', text: fill(t.rate_date, dateText(s.lang, display.rate_date)) });
+      controls.push(h('div', { cls: 'control' }, [h('label', { for: 'cur' }, [t.currency]), select, note]));
+    }
+    if (!lines.length && !controls.length) return null;
+    return h('section', { cls: 'criteria' }, [
+      lines.length ? h('h2', { text: t.criteria }) : null
+    ].concat(lines).concat(controls.length ? [h('div', { cls: 'controls' }, controls)] : []));
+  }
+  function actNode(t) {
+    return h('section', { cls: 'act' }, [h('p', { text: t.act }), h('small', { text: t.install })]);
+  }
+
+  // ---------- страница подборки ----------
+  function listKey(s) { return [s.t, s.lang, s.cur, s.tol].join('|'); }
+  function renderList(s) {
+    var key = listKey(s);
+    if (listCache && listCache.key === key && Date.now() - listCache.loadedAt < STALE_MS) {
+      drawList(s, listCache);
+      window.scrollTo(0, listCache.scroll || 0);
+      return Promise.resolve();
+    }
+    setContent([h('div', { cls: 'skeleton' }), h('p', { cls: 'state', text: ui(s.lang).loading })]);
+    return Promise.all([loadReg(s.lang), call(body(s, 'view'))]).then(function (res) {
+      var data = res[1];
+      return loadGeo(data.realtor && data.realtor.country_code).then(function (geo) {
+        listCache = {
+          key: key, data: data, geo: geo,
+          items: (data.selection && data.selection.items) || [],
+          cursor: data.selection && data.selection.next_cursor || null,
+          loadedAt: Date.now(), scroll: 0
+        };
+        drawList(s, listCache);
+        window.scrollTo(0, 0);
+      });
+    });
+  }
+  function body(s, action, extra) {
+    var b = { t: s.t, action: action, lang: s.lang };
+    if (s.cur) b.currency = s.cur;
+    if (action === 'view' && s.tol) b.tolerance = s.tol;
+    for (var k in (extra || {})) b[k] = extra[k];
+    return b;
+  }
+  function drawList(s, cache) {
+    var data = cache.data, sel = data.selection || {};
+    var country = data.realtor && data.realtor.country_code || null;
+    var c = ctxOf(s.lang, { currency: sel.currency }, cache.geo, country);
+    var t = c.t;
+    var display = data.display || {};
+    var total = typeof sel.total === 'number' ? sel.total : cache.items.length;
+    var nodes = [
+      realtorNode(s.lang, data.realtor),
+      h('h1', { cls: 'title', text: t.picked }),
+      h('p', { cls: 'sub', text: plural(s.lang, t.objects, total) + ' · ' + t.now }),
+      criteriaNode(s, c, data)
+    ];
+    var rec = (sel.recommended || []).filter(function (x) { return x.available; });
+    if (rec.length) {
+      nodes.push(h('h2', { cls: 'section-title', text: t.rec }));
+      nodes.push(h('div', { cls: 'grid' }, rec.map(function (it) { return cardNode(s, c, it, display, sel.kind); })));
+      nodes.push(h('h2', { cls: 'section-title', text: t.all }));
+    }
+    if (!cache.items.length) {
+      nodes.push(stateBox(null, t.empty + (sel.kind === 'matching' && sel.tolerance_limit_pct > s.tol ? ' ' + t.empty_tol : '')));
+    } else {
+      nodes.push(h('div', { cls: 'grid', id: 'grid' }, cache.items.map(function (it) { return cardNode(s, c, it, display, sel.kind); })));
+    }
+    if (cache.cursor) {
+      var btn = h('button', { cls: 'btn btn--ghost', type: 'button', text: t.more });
+      btn.addEventListener('click', function () { more(s, cache, btn); });
+      nodes.push(h('div', { cls: 'more' }, [btn]));
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (en) {
+          if (en[0].isIntersecting) { io.disconnect(); more(s, cache, btn); }
+        }, { rootMargin: '400px 0px' });
+        setTimeout(function () { io.observe(btn); }, 0);
+      }
+    }
+    nodes.push(actNode(t));
+    setContent(nodes);
+    showCta(s, true);
+    lastRender = Date.now();
+  }
+  function more(s, cache, btn) {
+    if (btn.disabled || !cache.cursor) return;
+    btn.disabled = true;
+    call(body(s, 'view', { cursor: cache.cursor })).then(function (data) {
+      var sel = data.selection || {};
+      cache.items = cache.items.concat(sel.items || []);
+      cache.cursor = sel.next_cursor || null;
+      var y = window.scrollY;
+      drawList(s, cache);
+      window.scrollTo(0, y);
+    }, function (err) {
+      btn.disabled = false;
+      if (err.code === 'unavailable') showError(s, err);
+    });
+  }
+
+  // ---------- страница объекта ----------
+  function renderProperty(s) {
+    if (listCache && listCache.key === listKey(s)) listCache.scroll = window.scrollY;
+    setContent([h('div', { cls: 'skeleton' })]);
+    return Promise.all([loadReg(s.lang), call(body(s, 'property', { property_id: s.pid }))]).then(function (res) {
+      var data = res[1], p = data.property || {};
+      var country = p.fields && p.fields.country || data.realtor && data.realtor.country_code;
+      return loadGeo(country).then(function (geo) { drawProperty(s, data, geo, country); window.scrollTo(0, 0); });
+    });
+  }
+  function rowsFor(c, keys, values) {
+    var rows = [];
+    keys.forEach(function (key) {
+      var parts = key.split('.');
+      var v = values[parts[0]] && values[parts[0]][parts[1]];
+      var text = valueText(c, key, v);
+      if (!text) return;
+      if (parts[1] === 'region' && values.property.city) {
+        // Регион совпадает с городом (Ташкент) — строку не повторять, как в приложении.
+        var city = valueText(c, 'property.city', values.property.city);
+        if (city && (text === city || text === fill(c.t.city_region, city))) return;
+      }
+      var label = reg.names[key] || parts[1];
+      if (parts[1] === 'region' && reg.by_country.region && reg.by_country.region[c.country]) label = reg.by_country.region[c.country];
+      rows.push(h('li', null, [h('span', { text: label }), h('b', { text: text })]));
+    });
+    return rows;
+  }
+  function drawProperty(s, data, geo, country) {
+    var p = data.property || {};
+    var fields = p.fields || {};
+    var c = ctxOf(s.lang, p, geo, country);
+    var t = c.t;
+    var display = data.display || {};
+    var nodes = [h('a', { cls: 'back', href: hashOf({ t: s.t, lang: s.lang, cur: s.cur, tol: s.tol }), text: '← ' + t.back })];
+
+    var media = (p.media || []).filter(function (m) { return m.url; });
+    if (media.length) {
+      nodes.push(h('div', { cls: 'gallery' }, media.map(function (m, i) {
+        if (m.kind === 'video') {
+          return h('div', null, [h('video', { src: m.url, controls: true, preload: 'metadata', playsinline: true })]);
+        }
+        return h('div', null, [h('img', { src: m.url, alt: '', loading: i ? 'lazy' : 'eager', referrerpolicy: 'no-referrer' })]);
+      })));
+      if (media.length > 1) nodes.push(h('p', { cls: 'gallery-count', text: fill(t.photos, p.photo_count || media.length) + (p.has_video ? ' · ' + t.video : '') }));
+    }
+
+    var offers = p.offers || [];
+    nodes.push(h('div', { cls: 'prices' }, offers.map(function (o) {
+      var pr = offerPrice(c, o, display);
+      if (!pr) return null;
+      return h('div', null, [h('p', { cls: 'deal', text: o.kind === 'sale' ? t.sale : t.rent }),
+        h('p', { cls: 'price' }, [pr.text, pr.per ? h('small', { text: ' ' + pr.per }) : null])]);
+    })));
+    if (display.no_rate && s.cur) nodes.push(h('p', { cls: 'note-line warn', text: t.no_rate }));
+
+    nodes.push(h('h1', { cls: 'obj-title', text: nameText(c, fields, p.revealed) }));
+    var meta = [summaryText(c, fields), placeText(c, fields)].filter(Boolean).join(' · ');
+    if (meta) nodes.push(h('p', { cls: 'obj-meta', text: meta }));
+    if (p.recommended) nodes.push(h('span', { cls: 'pill', text: t.rec_badge }));
+
+    var note = p.audience_notes && p.audience_notes.client_note;
+    if (note && String(note).trim()) nodes.push(h('div', { cls: 'note' }, [h('b', { text: t.note }), h('p', { cls: 'text-block', text: String(note) })]));
+
+    var desc = [fields.description_short, fields.description_full].filter(function (x) { return x && String(x).trim(); });
+    if (desc.length) {
+      nodes.push(h('section', { cls: 'group' }, [h('h2', { text: t.groups.description })].concat(desc.map(function (d) {
+        return h('p', { cls: 'text-block', text: String(d) });
+      }))));
+    }
+
+    // Значения по сущностям: объект, продажа, аренда (публичные и открытые риелтором).
+    var sale = offers.filter(function (o) { return o.kind === 'sale'; })[0];
+    var rent = offers.filter(function (o) { return o.kind === 'rent'; })[0];
+    function offerValues(o) {
+      if (!o) return {};
+      var v = {};
+      [o.attrs, o.revealed].forEach(function (src) { for (var k in (src || {})) v[k] = src[k]; });
+      if (o.rent_type) v.rent_type = o.rent_type;
+      return v;
+    }
+    var values = { property: {}, offer_sale: offerValues(sale), offer_rent: offerValues(rent) };
+    [fields, p.revealed || {}].forEach(function (src) { for (var k in src) values.property[k] = src[k]; });
+    var rentCtx = rent ? c : null;
+    reg.groups.forEach(function (g) {
+      var name = g[0], keys = g[1];
+      if (name === 'sale_terms' && !sale) return;
+      if (name === 'rent_terms' && !rent) return;
+      var rows = rowsFor(name === 'rent_terms' && rentCtx ? rentCtx : c, keys, values);
+      if (!rows.length) return;
+      nodes.push(h('section', { cls: 'group' }, [h('h2', { text: t.groups[name] || name }), h('ul', { cls: 'rows' }, rows)]));
+    });
+
+    var area = p.area;
+    if (area && (typeof area.approx_lat === 'number' || typeof area.lat === 'number')) {
+      var mapBox = h('div', { cls: 'map', id: 'map', role: 'img', 'aria-label': t.place });
+      nodes.push(h('section', { cls: 'group' }, [h('h2', { text: t.place }), mapBox,
+        area.exact ? null : h('p', { cls: 'small', text: t.approx })]));
+      setTimeout(function () { drawMap(mapBox, area); }, 0);
+    }
+    var checked = p.actuality_checked_at ? fill(t.checked, dateText(s.lang, p.actuality_checked_at))
+      : (p.updated_at ? fill(t.updated, dateText(s.lang, p.updated_at)) : null);
+    if (checked) nodes.push(h('p', { cls: 'small', text: checked }));
+    nodes.push(actNode(t));
+    setContent(nodes);
+    showCta(s, true);
+    lastRender = Date.now();
+  }
+  var leaflet = null;
+  function drawMap(box, area) {
+    var lat = typeof area.lat === 'number' ? area.lat : area.approx_lat;
+    var lng = typeof area.lng === 'number' ? area.lng : area.approx_lng;
+    if (!leaflet) {
+      leaflet = new Promise(function (resolve, reject) {
+        var css = document.createElement('link');
+        css.rel = 'stylesheet';
+        css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
+        document.head.appendChild(css);
+        var js = document.createElement('script');
+        js.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+        js.onload = function () { resolve(window.L); };
+        js.onerror = reject;
+        document.head.appendChild(js);
+      });
+    }
+    leaflet.then(function (L) {
+      if (!document.body.contains(box)) return;
+      var map = L.map(box, { scrollWheelZoom: false, dragging: !L.Browser.mobile, tap: false });
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+      if (area.exact) {
+        L.marker([lat, lng]).addTo(map);
+        map.setView([lat, lng], 16);
+      } else {
+        var circle = L.circle([lat, lng], { radius: area.radius_m || 300, color: '#4A7640', fillColor: '#77B75F', fillOpacity: 0.25 }).addTo(map);
+        map.fitBounds(circle.getBounds(), { padding: [16, 16] });
+      }
+    }, function () { box.hidden = true; });
+  }
+
+  // ---------- кнопка приложения, языки, ошибки ----------
+  function showCta(s, on) {
+    cta.hidden = !on;
+    openBtn.textContent = ui(s.lang).open;
+    openBtn.href = 'easyestate://selection?t=' + encodeURIComponent(s.t);
+  }
+  function drawChrome(s) {
+    var t = ui(s.lang);
+    document.documentElement.lang = s.lang === 'uz' ? 'uz-Latn' : s.lang;
+    document.title = t.title + ' · EASY ESTATE';
+    var nav = document.getElementById('langs');
+    nav.textContent = '';
+    LANGS.forEach(function (code) {
+      nav.appendChild(h('a', {
+        href: s.t ? hashOf({ t: s.t, lang: code, pid: s.pid, cur: s.cur, tol: s.tol }) : '#lang=' + code,
+        'aria-current': code === s.lang ? 'true' : 'false', lang: code,
+        text: code.toUpperCase()
+      }));
+    });
+    var foot = document.getElementById('foot');
+    foot.textContent = '';
+    foot.appendChild(h('a', { href: '/?lang=' + (s.lang === 'id' ? 'en' : s.lang), text: t.foot }));
+    foot.appendChild(document.createTextNode(' · '));
+    foot.appendChild(h('a', { href: '/privacy.html', text: 'Privacy' }));
+  }
+  function showError(s, err) {
+    var t = ui(s.lang);
+    clearTimeout(retryTimer);
+    if (err.code === 'unavailable' && s.pid) {
+      setContent([h('a', { cls: 'back', href: hashOf({ t: s.t, lang: s.lang, cur: s.cur, tol: s.tol }), text: '← ' + t.back }), stateBox(null, t.gone)]);
+      showCta(s, true);
+      return;
+    }
+    if (err.code === 'unavailable') {
+      listCache = null;
+      setContent([stateBox(t.expired, t.install)]);
+      showCta(s, false);
+      return;
+    }
+    if (err.code === 'tolerance_not_allowed' && s.tol) { go({ tol: 0 }); return; }
+    if (err.code === 'invalid') { setContent([stateBox(t.bad)]); showCta(s, false); return; }
+    if (err.code === 'rate_limited') {
+      var left = Math.min(Math.max(err.retry || 10, 1), 120);
+      var p = h('p', { text: fill(t.busy, left) });
+      setContent([h('div', { cls: 'state' }, [p])]);
+      var tick = function () {
+        left -= 1;
+        if (left <= 0) { route(); return; }
+        p.textContent = fill(t.busy, left);
+        retryTimer = setTimeout(tick, 1000);
+      };
+      retryTimer = setTimeout(tick, 1000);
+      return;
+    }
+    var btn = h('button', { cls: 'btn', type: 'button', text: t.retry, onclick: function () { route(); } });
+    setContent([stateBox(null, t.error, btn)]);
+  }
+  function route() {
+    clearTimeout(retryTimer);
+    var s = params();
+    drawChrome(s);
+    if (!TOKEN_RE.test(s.t)) {
+      setContent([stateBox(ui(s.lang).bad)]);
+      showCta(s, false);
+      return;
+    }
+    var job = s.pid ? renderProperty(s) : renderList(s);
+    job.catch(function (err) { showError(s, err || {}); });
+  }
+
+  window.addEventListener('hashchange', route);
+  document.addEventListener('visibilitychange', function () {
+    // Ссылки на фото живут час: открытая дольше страница перезапрашивает данные.
+    if (document.visibilityState === 'visible' && lastRender && Date.now() - lastRender > STALE_MS) {
+      listCache = null;
+      route();
+    }
+  });
+  route();
+})();
+</script>
+</body>
+</html>
