@@ -572,7 +572,7 @@ def doc_block(slug, lang):
 
 for slug in PAGES:
     head_extra = ('<meta name="robots" content="noindex">\n<link rel="icon" href="/assets/logo-mark.svg" type="image/svg+xml">' if slug == "404"
-                  else og_meta(f"https://easyestate.solutions/{slug}.html", title_of(slug, 'ru'), DESC))
+                  else og_meta(f"https://easyestate.solutions/{slug}", title_of(slug, 'ru'), DESC))
     page_title = f'EASY ESTATE - {PAGES[slug]["title"]["ru"]} / {PAGES[slug]["title"]["en"]}'
     titles = " ".join(f'data-title-{L}="EASY ESTATE - {e(title_of(slug, L))}"' for L in LANGS)
     body = f'''<div class="page" {titles}>
@@ -598,10 +598,10 @@ for slug in PAGES:
     print("page", slug, len(doc))
 
 (ROOT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://easyestate.solutions/sitemap.xml\n", encoding="utf-8")
-urls = ["support.html", "delete-account.html", "privacy.html", "terms.html"]
+urls = ["support", "delete-account", "privacy", "terms"]  # без .html: Cloudflare Pages отдаёт страницы по адресу без расширения
 # Справка (/help/, собирается _src/build_help.py из базы знаний приложения) — все её страницы в карту сайта.
 if (ROOT / "help" / "index.html").exists():
-    urls += ["help/"] + sorted(f"help/{p.name}" for p in (ROOT / "help").glob("*.html") if p.name != "index.html")
+    urls += ["help/"] + sorted(f"help/{p.stem}" for p in (ROOT / "help").glob("*.html") if p.name != "index.html")
 alts = "".join(f'    <xhtml:link rel="alternate" hreflang="{HREFLANG[L]}" href="{SITE}{L}/"/>\n' for L in LANGS) \
     + f'    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE}"/>\n'
 home_urls = [SITE] + [f"{SITE}{L}/" for L in LANGS]

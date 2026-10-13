@@ -126,7 +126,7 @@ def main():
     items = []
     for slug in slugs:
         title, body = read(slug)
-        url = f"{SITE}help/{slug}.html"
+        url = f"{SITE}help/{slug}"  # без .html: Cloudflare Pages переадресует .html на адрес без расширения
         desc = lead_of(body) or title
         html_body = markdown.markdown(body, extensions=["sane_lists"])
         ld = {"@context": "https://schema.org", "@type": "Article", "headline": title, "inLanguage": "ru",
@@ -135,7 +135,7 @@ def main():
         (out / f"{slug}.html").write_text(page(f"{title} - EASY ESTATE", desc, url, content, ld), encoding="utf-8")
         items.append((slug, title, desc))
         print("help", slug)
-    lst = "".join(f'<li><a href="/help/{s}.html">{e(t)}</a><p>{e(d)}</p></li>' for s, t, d in items)
+    lst = "".join(f'<li><a href="/help/{s}">{e(t)}</a><p>{e(d)}</p></li>' for s, t, d in items)
     content = (f'{crumbs()}<h1>Справка EASY ESTATE</h1>'
                f'<p>Как работает приложение для риелторов и их клиентов: объекты, клиенты, голосовое заполнение, '
                f'подборки, приватность. Приложение в закрытом тестировании.</p><ul class="help-list">{lst}</ul>')
