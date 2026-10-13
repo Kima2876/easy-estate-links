@@ -24,6 +24,12 @@
 <link rel="canonical" href="https://easyestate.solutions/">
 <link rel="icon" href="/assets/logo-mark.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="alternate" hreflang="ru" href="https://easyestate.solutions/ru/">
+<link rel="alternate" hreflang="uz-Latn" href="https://easyestate.solutions/uz/">
+<link rel="alternate" hreflang="uz-Cyrl" href="https://easyestate.solutions/uz-cyrl/">
+<link rel="alternate" hreflang="en" href="https://easyestate.solutions/en/">
+<link rel="alternate" hreflang="x-default" href="https://easyestate.solutions/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://easyestate.solutions/#org", "name": "EASY ESTATE", "legalName": "EASY ESTATE LLC", "url": "https://easyestate.solutions/", "logo": "https://easyestate.solutions/assets/apple-touch-icon.png", "email": "admin@easyestate.solutions", "taxID": "307553192", "address": {"@type": "PostalAddress", "addressLocality": "Tashkent", "addressCountry": "UZ"}, "areaServed": ["UZ", "AE", "TH", "ID"]}, {"@type": "WebSite", "@id": "https://easyestate.solutions/#website", "url": "https://easyestate.solutions/", "name": "EASY ESTATE", "publisher": {"@id": "https://easyestate.solutions/#org"}, "inLanguage": ["ru", "uz-Latn", "uz-Cyrl", "en"]}, {"@type": "SoftwareApplication", "@id": "https://easyestate.solutions/#app", "name": "EASY ESTATE", "applicationCategory": "BusinessApplication", "operatingSystem": "Android, iOS", "description": "Профессиональный рабочий инструмент агента по недвижимости: объекты, клиенты и подборки в одном приложении. Меньше операционки при большем KPI, а база всегда ваша.", "inLanguage": "ru", "url": "https://easyestate.solutions/", "publisher": {"@id": "https://easyestate.solutions/#org"}}]}</script>
 <style>/* Layout: светлые секции по сетке 1120px, настоящие экраны в рамке телефона; одна зелёная полоса бренда («база принадлежит риелтору»). Цвета — дизайн-система приложения (brand900 #4A7640), шрифт Arial по брендбуку. */
 :root {
   --bg: #FFFFFF;
@@ -651,7 +657,9 @@ h1 { font-size: clamp(36px, 5.6vw, 64px); line-height: 1.04; letter-spacing: -0.
   }
   var q = null;
   try { q = new URLSearchParams(window.location.search).get('lang'); } catch (e) { q = null; }
-  var current = pick(q || saved() || navigator.language || 'en');
+  // Страница языка (/ru/, /uz/, /uz-cyrl/, /en/) задаёт язык сама; ?lang важнее везде, сохранённый выбор и язык браузера — только на корне.
+  var fixed = root.getAttribute('data-lang-fixed');
+  var current = pick(q || fixed || saved() || navigator.language || 'en');
   apply(current);
   var lastUz = current.indexOf('uz') === 0 ? current : (pick(saved() || '') === 'uz-cyrl' ? 'uz-cyrl' : 'uz');
   var links = document.querySelectorAll('[data-l]');

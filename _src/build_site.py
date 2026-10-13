@@ -164,14 +164,18 @@ SCREEN_PREFIX = {"en": "en_", "uz": "uz_", "uz-cyrl": "uz_"}  # снимки п�
 e = html.escape
 
 
+BASE = ""  # "" — корень (относительные пути, работают и в превью); "/" — страницы языков в подпапках
+
+
 def phone(src, alt, cls="", eager=False):
     load = "eager" if eager else "lazy"
-    return (f'<figure class="phone {cls}"><img src="assets/screens/{src}.webp" alt="{e(alt)}" '
+    return (f'<figure class="phone {cls}"><img src="{BASE}assets/screens/{src}.webp" alt="{e(alt)}" '
             f'width="600" height="1304" loading="{load}" decoding="async"></figure>')
 
 
 def block(lang):
     t = T[lang]
+    t = dict(t, f_links=[(h if h.startswith(("/", "http")) else BASE + h, x) for h, x in t["f_links"]])
     pre = SCREEN_PREFIX.get(lang, "")
     hero_imgs = (pre + "05_home", pre + "07_property_card")
     c_imgs = (pre + "04_client_card", pre + "06_properties")
@@ -319,11 +323,27 @@ def header(home):
   </div>
 </div>'''
 
-BODY = f'''<div class="page" data-title-ru="EASY ESTATE - личный помощник риелтора" data-title-uz="{uz.TITLE_UZ}" data-title-uz-cyrl="{uz.to_cyrl(uz.TITLE_UZ)}" data-title-en="EASY ESTATE - a personal assistant for real estate agents">
+SITE = "https://easyestate.solutions/"
+PAGE_TITLES = {
+    "ru": "EASY ESTATE - личный помощник риелтора",
+    "uz": uz.TITLE_UZ,
+    "uz-cyrl": uz.to_cyrl(uz.TITLE_UZ),
+    "en": "EASY ESTATE - a personal assistant for real estate agents",
+}
+HREFLANG = {"ru": "ru", "uz": "uz-Latn", "uz-cyrl": "uz-Cyrl", "en": "en"}
+OG_LOCALE = {"ru": "ru_RU", "uz": "uz_UZ", "uz-cyrl": "uz_UZ", "en": "en_US"}
+
+
+def body():
+    titles = " ".join(f'data-title-{L}="{e(PAGE_TITLES[L])}"' for L in LANGS)
+    return f'''<div class="page" {titles}>
 {header(True)}
 <main>{"".join(block(L) for L in LANGS)}</main>
 </div>
 <script>{JS}</script>'''
+
+
+BODY = body()
 
 TITLE = "EASY ESTATE"
 DESC = "Профессиональный рабочий инструмент: объекты, клиенты и подборки в одном приложении, база всегда ваша. A personal assistant for real estate agents and agencies."
@@ -331,17 +351,16 @@ DESC = "Профессиональный рабочий инструмент: о
 OG_IMAGE = "https://easyestate.solutions/assets/og-easyestate-2.jpg"
 
 
-def og_meta(url, title, desc):
+def og_meta(url, title, desc, locale="ru_RU"):
     """Превью ссылки в Telegram, WhatsApp и других мессенджерах (Open Graph)."""
+    alts = "".join(f'\n<meta property="og:locale:alternate" content="{x}">' for x in ("ru_RU", "uz_UZ", "en_US") if x != locale)
     return f'''<meta name="description" content="{e(desc)}">
 <meta property="og:site_name" content="EASY ESTATE">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{url}">
-<meta property="og:locale" content="ru_RU">
-<meta property="og:locale:alternate" content="uz_UZ">
-<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale" content="{locale}">{alts}
 <meta property="og:image" content="{OG_IMAGE}">
 <meta property="og:image:secure_url" content="{OG_IMAGE}">
 <meta property="og:image:type" content="image/jpeg">
@@ -355,21 +374,63 @@ def og_meta(url, title, desc):
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">'''
 
 
-HEAD_META = f"<title>{TITLE}</title>\n" + og_meta("https://easyestate.solutions/", "Личный помощник риелтора", DESC)
+def hreflang_links():
+    """Взаимные ссылки языковых версий главной (одинаковые на всех версиях) и x-default — корень с выбором языка."""
+    rows = [f'<link rel="alternate" hreflang="{HREFLANG[L]}" href="{SITE}{L}/">' for L in LANGS]
+    rows.append(f'<link rel="alternate" hreflang="x-default" href="{SITE}">')
+    return "\n".join(rows)
 
-full = f'''<!DOCTYPE html>
-<html lang="ru">
+
+def json_ld(lang, url):
+    """Машиночитаемое описание компании, сайта и приложения (schema.org) для поисковиков и ИИ-поиска."""
+    import json
+    org = {
+        "@type": "Organization", "@id": SITE + "#org", "name": "EASY ESTATE", "legalName": "EASY ESTATE LLC",
+        "url": SITE, "logo": SITE + "assets/apple-touch-icon.png", "email": EMAIL, "taxID": "307553192",
+        "address": {"@type": "PostalAddress", "addressLocality": "Tashkent", "addressCountry": "UZ"},
+        "areaServed": ["UZ", "AE", "TH", "ID"],
+    }
+    site = {"@type": "WebSite", "@id": SITE + "#website", "url": SITE, "name": "EASY ESTATE",
+            "publisher": {"@id": SITE + "#org"}, "inLanguage": [HREFLANG[L] for L in LANGS]}
+    app = {"@type": "SoftwareApplication", "@id": SITE + "#app", "name": "EASY ESTATE",
+           "applicationCategory": "BusinessApplication", "operatingSystem": "Android, iOS",
+           "description": T[lang]["lead"], "inLanguage": HREFLANG[lang], "url": url,
+           "publisher": {"@id": SITE + "#org"}}
+    data = {"@context": "https://schema.org", "@graph": [org, site, app]}
+    return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
+
+
+def home_html(lang=None):
+    """Главная. lang=None — корень (язык выбирает скрипт); иначе страница языка /<lang>/ со своими заголовком и описанием."""
+    if lang is None:
+        url, html_lang, fixed = SITE, "ru", ""
+        meta = og_meta(url, "Личный помощник риелтора", DESC)
+        ld_lang = "ru"
+        title = TITLE
+    else:
+        url, html_lang, fixed = f"{SITE}{lang}/", LANG_ATTR.get(lang, lang), f' data-lang-fixed="{lang}"'
+        meta = og_meta(url, T[lang]["h1"], T[lang]["lead"], OG_LOCALE[lang])
+        ld_lang = lang
+        title = PAGE_TITLES[lang]
+    return f'''<!DOCTYPE html>
+<html lang="{html_lang}"{fixed}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-{HEAD_META}
+<title>{e(title)}</title>
+{meta}
+{hreflang_links()}
+{json_ld(ld_lang, url)}
 <style>{CSS}</style>
 </head>
 <body>
-{BODY}
+{body()}
 </body>
 </html>
 '''
+
+
+full = home_html()
 (ROOT / "index.html").write_text(full, encoding="utf-8")
 preview = f'''<title>{TITLE}</title>
 <style>{CSS}</style>
@@ -377,6 +438,14 @@ preview = f'''<title>{TITLE}</title>
 '''
 (ROOT / "_src" / "preview.html").write_text(preview, encoding="utf-8")
 print("ok", len(full), len(preview))
+
+# Страницы языков (/ru/, /uz/, /uz-cyrl/, /en/): тот же контент, свой язык по умолчанию, пути от корня.
+BASE = "/"
+for L in LANGS:
+    (ROOT / L).mkdir(exist_ok=True)
+    (ROOT / L / "index.html").write_text(home_html(L), encoding="utf-8")
+    print("lang page", L)
+BASE = ""
 
 # ---------------------------------------------------------------------------
 # Служебные страницы: поддержка, удаление аккаунта, 404 (решение 268 (5), site_v1 3.3, 3.4, 3.8).
@@ -527,9 +596,14 @@ for slug in PAGES:
     print("page", slug, len(doc))
 
 (ROOT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://easyestate.solutions/sitemap.xml\n", encoding="utf-8")
-urls = ["", "support.html", "delete-account.html", "privacy.html", "terms.html"]
+urls = ["support.html", "delete-account.html", "privacy.html", "terms.html"]
+alts = "".join(f'    <xhtml:link rel="alternate" hreflang="{HREFLANG[L]}" href="{SITE}{L}/"/>\n' for L in LANGS) \
+    + f'    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE}"/>\n'
+home_urls = [SITE] + [f"{SITE}{L}/" for L in LANGS]
 (ROOT / "sitemap.xml").write_text(
-    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    + "".join(f"  <url><loc>https://easyestate.solutions/{u}</loc></url>\n" for u in urls)
+    '<?xml version="1.0" encoding="UTF-8"?>\n'
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+    + "".join(f"  <url>\n    <loc>{u}</loc>\n{alts}  </url>\n" for u in home_urls)
+    + "".join(f"  <url><loc>{SITE}{u}</loc></url>\n" for u in urls)
     + "</urlset>\n", encoding="utf-8")
 print("robots, sitemap")

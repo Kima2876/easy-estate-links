@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://easyestate.solutions/</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://easyestate.solutions/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://easyestate.solutions/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uz-Latn" href="https://easyestate.solutions/uz/"/>
+    <xhtml:link rel="alternate" hreflang="uz-Cyrl" href="https://easyestate.solutions/uz-cyrl/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easyestate.solutions/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://easyestate.solutions/"/>
+  </url>
+  <url>
+    <loc>https://easyestate.solutions/ru/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://easyestate.solutions/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uz-Latn" href="https://easyestate.solutions/uz/"/>
+    <xhtml:link rel="alternate" hreflang="uz-Cyrl" href="https://easyestate.solutions/uz-cyrl/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easyestate.solutions/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://easyestate.solutions/"/>
+  </url>
+  <url>
+    <loc>https://easyestate.solutions/uz/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://easyestate.solutions/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uz-Latn" href="https://easyestate.solutions/uz/"/>
+    <xhtml:link rel="alternate" hreflang="uz-Cyrl" href="https://easyestate.solutions/uz-cyrl/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easyestate.solutions/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://easyestate.solutions/"/>
+  </url>
+  <url>
+    <loc>https://easyestate.solutions/uz-cyrl/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://easyestate.solutions/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uz-Latn" href="https://easyestate.solutions/uz/"/>
+    <xhtml:link rel="alternate" hreflang="uz-Cyrl" href="https://easyestate.solutions/uz-cyrl/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easyestate.solutions/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://easyestate.solutions/"/>
+  </url>
+  <url>
+    <loc>https://easyestate.solutions/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://easyestate.solutions/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uz-Latn" href="https://easyestate.solutions/uz/"/>
+    <xhtml:link rel="alternate" hreflang="uz-Cyrl" href="https://easyestate.solutions/uz-cyrl/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easyestate.solutions/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://easyestate.solutions/"/>
+  </url>
   <url><loc>https://easyestate.solutions/support.html</loc></url>
   <url><loc>https://easyestate.solutions/delete-account.html</loc></url>
   <url><loc>https://easyestate.solutions/privacy.html</loc></url>

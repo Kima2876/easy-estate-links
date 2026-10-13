@@ -90,7 +90,9 @@
   }
   var q = null;
   try { q = new URLSearchParams(window.location.search).get('lang'); } catch (e) { q = null; }
-  var current = pick(q || saved() || navigator.language || 'en');
+  // Страница языка (/ru/, /uz/, /uz-cyrl/, /en/) задаёт язык сама; ?lang важнее везде, сохранённый выбор и язык браузера — только на корне.
+  var fixed = root.getAttribute('data-lang-fixed');
+  var current = pick(q || fixed || saved() || navigator.language || 'en');
   apply(current);
   var lastUz = current.indexOf('uz') === 0 ? current : (pick(saved() || '') === 'uz-cyrl' ? 'uz-cyrl' : 'uz');
   var links = document.querySelectorAll('[data-l]');
