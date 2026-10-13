@@ -34,8 +34,29 @@ SCRIPT = """  <script>
       for (var j = 0; j < links.length; j++) { if (links[j].getAttribute('data-l') === lang) links[j].setAttribute('aria-current', 'true'); }
       var t = document.querySelector('article[data-lang="' + lang + '"] h1');
       if (t) document.title = 'EASY ESTATE - ' + t.textContent;
+      var home = document.querySelector('a.home');
+      if (home) home.href = '/?lang=' + lang;
     })();
   </script>"""
+
+
+HOME_CSS = ("    .home { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 16px; color: #1B2419; "
+            "text-decoration: none; font-weight: bold; letter-spacing: 1.5px; font-size: 15px; min-height: 48px; }\n"
+            "    .home .mark { width: 40px; height: 40px; margin: 0; }\n"
+            "    .home .mark svg { width: 100%; height: 100%; display: block; }\n"
+            "    .home:hover span:last-child { color: #4A7640; }\n")
+
+
+def home_link(s):
+    # Логотип вверху — ссылка на главную, как на /support (отзыв 13.10). Сборка повторяемая.
+    if 'class="home"' not in s:
+        s = re.sub(r'<div class="mark" aria-hidden="true">(.*?</svg>)</div>',
+                   lambda m: ('<a class="home" href="/" aria-label="EASY ESTATE">'
+                              '<span class="mark" aria-hidden="true">' + m.group(1) +
+                              '</span><span>EASY ESTATE</span></a>'), s, count=1, flags=re.S)
+    if ".home {" not in s:
+        s = s.replace("    .langs {", HOME_CSS + "    .langs {", 1)
+    return s
 
 
 def article(code, inner):
@@ -55,6 +76,7 @@ def build(name, inner_uz):
     s = re.sub(r'(<article lang="en" data-lang="en">.*?</article>)', lambda m: m.group(1) + "\n" + block, s, count=1, flags=re.S)
     s = re.sub(r'<nav class="langs" aria-label="Language">.*?</nav>', NAV, s, count=1, flags=re.S)
     s = re.sub(r"  <script>.*?</script>", lambda m: SCRIPT, s, count=1, flags=re.S)
+    s = home_link(s)
     path.write_text(s, encoding="utf-8")
     print(name, len(s))
 
