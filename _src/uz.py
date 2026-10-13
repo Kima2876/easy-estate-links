@@ -13,7 +13,7 @@ import re
 
 T_UZ = {
     "nav": [("how", "Qanday ishlaydi"), ("client", "Mijozlar uchun"), ("price", "Narxlar"), ("contact", "Aloqa")],
-    "status": "Yopiq test rejimi · Android",
+    "status": "Yopiq test rejimi · Android va iOS",
     "h1": "Rieltorning shaxsiy yordamchisi",
     "lead": "Koʻchmas mulk agentlari va agentliklari uchun professional ish vositasi: obyektlar, mijozlar va obyektlar toʻplamlari yagona ilovada. Kundalik ish kamayadi, KPI oshadi, mijozlar bazasi esa doimo sizda qoladi.",
     "cta": "Biz bilan bogʻlanish",
@@ -134,7 +134,7 @@ WORDS = {
 
 # Не переводить: марки, адреса почты, @имена, ссылки, HTML-сущности.
 PROTECT = re.compile(
-    r"&[#\w]+;|https?://\S+|[\w.+-]+@[\w.-]+\.\w+|@\w+|EASY ESTATE|KPI|Android|Google Play|Google Maps|Google|Gemini|Gmail|GitHub|Supabase|HTTPS|PDF|API|App Store|Telegram"
+    r"&[#\w]+;|https?://\S+|[\w.+-]+@[\w.-]+\.\w+|@\w+|EASY ESTATE|KPI|Android|iOS|Google Play|Google Maps|Google|Gemini|Gmail|GitHub|Supabase|HTTPS|PDF|API|App Store|Telegram"
 )
 
 _PAIRS = {"oʻ": "ў", "gʻ": "ғ", "sh": "ш", "ch": "ч", "yo": "ё", "yu": "ю", "ya": "я", "ye": "е"}

@@ -25,7 +25,7 @@ LOCK = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focus
 T = {
     "ru": {
         "nav": [("how", "Как работает"), ("client", "Клиенту"), ("price", "Цены"), ("contact", "Контакты")],
-        "status": "Закрытое тестирование · Android",
+        "status": "Закрытое тестирование · Android и iOS",
         "h1": "Личный помощник риелтора",
         "lead": "Профессиональный рабочий инструмент агента по недвижимости: объекты, клиенты и подборки в одном приложении. Меньше операционки при большем KPI, а база всегда ваша.",
         "cta": "Связаться",
@@ -90,7 +90,7 @@ T = {
     },
     "en": {
         "nav": [("how", "How it works"), ("client", "For clients"), ("price", "Pricing"), ("contact", "Contact")],
-        "status": "Closed beta · Android",
+        "status": "Closed beta · Android and iOS",
         "h1": "A personal assistant for real estate agents",
         "lead": "A professional tool for real estate agents and agencies: properties, clients and curated selections in one app. Less routine, higher KPIs, and your database always stays yours.",
         "cta": "Get in touch",
